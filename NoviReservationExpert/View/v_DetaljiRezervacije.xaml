@@ -1,0 +1,238 @@
+﻿<Window x:Class="NoviReservationExpert.View.v_DetaljiRezervacije"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoviReservationExpert.View"
+        mc:Ignorable="d"
+        Title="Detalji Rezervacije" Height="600" Width="1130"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Gray"
+                BorderThickness="0,0,1,0">
+            <DockPanel LastChildFill="False">
+                <Border Grid.Row="0"
+                    Height="40"
+                    DockPanel.Dock="Top"
+                    Background="#284b63">
+                    <TextBlock x:Name="tbIDRezervacije"
+                                Foreground="White"
+                               Text="{Binding Naslov, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"></TextBlock>
+                </Border>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Gost:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding Gost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Broj telefona:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding Telefon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <Button BorderBrush="Transparent"
+                                    Margin="5,5,5,0"
+                        Height="25"
+                                    DockPanel.Dock="Top"
+                                    Command="{Binding PronadjiGosta_Command}">
+                    <Button.BitmapEffect>
+                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                        </DropShadowBitmapEffect>
+                    </Button.BitmapEffect>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"></Setter>
+                        </Style>
+                    </Button.Resources>
+
+                    <TextBlock Text="Pronađi gosta"
+                                   Foreground="WhiteSmoke"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                   FontSize="14"
+                                   TextWrapping="Wrap">
+                    </TextBlock>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#284b63"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#427aa1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Datum:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Početak:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding VremeOd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Kraj:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding VremeDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Sto:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             IsReadOnly="True"
+                             Text="{Binding Sto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Broj odraslih:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding BrojOdraslih, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Broj dece:"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             Text="{Binding BrojDece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"
+                                    Margin="5,10,5,0">
+                    <TextBlock Text="Napomena:"
+                               DockPanel.Dock="Left"
+                               Width="70"></TextBlock>
+                    <TextBox Margin="5,0,0,0"
+                             TextWrapping="WrapWithOverflow"
+                             Height="120"
+                             DockPanel.Dock="Bottom"
+                             Text="{Binding Napomena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <Button BorderBrush="Transparent"
+                        Margin="5 5 5 5"
+                        Height="25"
+                        DockPanel.Dock="Bottom"
+                        Command="{Binding Odustani_Command}">
+                    <Button.BitmapEffect>
+                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                        </DropShadowBitmapEffect>
+                    </Button.BitmapEffect>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel>
+                        <TextBlock Text="Odustani"
+                                   Foreground="WhiteSmoke"
+                                           HorizontalAlignment="Center"
+                                   FontSize="14"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold">
+                        </TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#d11a2a"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#8b0000"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button BorderBrush="Transparent"
+                                    Margin="5,5,5,0"
+                        Height="25"
+                                    DockPanel.Dock="Bottom"
+                                    Command="{Binding PrimeniPromene_Command}">
+                    <Button.BitmapEffect>
+                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                        </DropShadowBitmapEffect>
+                    </Button.BitmapEffect>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"></Setter>
+                        </Style>
+                    </Button.Resources>
+
+                    <TextBlock Text="Primeni promene"
+                                   Foreground="WhiteSmoke"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                   FontSize="14"
+                                   TextWrapping="Wrap">
+                    </TextBlock>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#284b63"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#427aa1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1"
+                >
+            <Image Source="/Resursi/Slike/DefaultSema.png" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"></Image>
+        </Border>
+        <Canvas Grid.Column="1"
+                x:Name="canvasStolovi"></Canvas>
+    </Grid>
+</Window>

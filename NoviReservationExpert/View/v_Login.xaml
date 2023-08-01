@@ -1,0 +1,2641 @@
+﻿<Window x:Class="NoviReservationExpert.View.v_Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
+        mc:Ignorable="d" 
+        Initialized="Window_Initialized"
+        Loaded="Window_Loaded"
+        WindowState="Maximized"    
+        Title="Login" 
+        WindowStartupLocation="CenterScreen" 
+        Width="900" Height="600" 
+        WindowStyle="None">
+
+    <Grid x:Name="loginGrid"
+          >
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resursi/Slike/pocetnaslika2.jpg" Opacity="0.6"></ImageBrush>
+
+        </Grid.Background>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid 
+              Name="grdMeni"
+              Width="200"
+              HorizontalAlignment="Right"
+              Margin="0">
+                <Grid Background="Black" Opacity="0.6">
+
+                </Grid>
+                <StackPanel VerticalAlignment="Top">
+                    <StatusBar 
+                        Margin="0 20"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Background="Transparent">
+                        <TextBlock x:Name="datumVreme"
+                                    FontSize="22"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold"
+                                    Foreground="White"
+                                   HorizontalAlignment="Center"
+                                    FontFamily="Bahnschrift">
+                        </TextBlock>
+                    </StatusBar>
+                    <Separator Margin="20 0"></Separator>
+                    <Button Width="{Binding ActualWidth, ElementName=grdMeni}"
+                Height="50"
+                Background="Transparent"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="10"
+                BorderBrush="Transparent"
+                Command="{Binding PadajuciMeni_Command}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" 
+                                    Width="{Binding ActualWidth, ElementName=btnPin}">
+                                <Image Source="/Resursi/Slike/objekti.png" 
+                                   Height="50" 
+                                   Width="50" 
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0">
+                                </Image>
+                                <TextBlock Text="OBJEKTI"
+                                   x:Name="tbObjekti"
+                                       Foreground="WhiteSmoke"
+                                       FontSize="15"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right">
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding PadajuciMeni_Command}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Border x:Name="brdPadajuciMeni"
+                        Width="{Binding ActualWidth, ElementName=grdMeni}"
+                    Height="0"
+                    Visibility="Visible">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Offset="1" Color="Transparent" />
+                                    <GradientStop Offset="0.4" Color="Transparent" />
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                        VerticalAlignment="Bottom">
+                    <Separator Margin="20 0"></Separator>
+                    <Button Width="{Binding ActualWidth, ElementName=grdMeni}" 
+                        x:Name="btnPin"
+                        Height="50"
+                        Background="Transparent"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Margin="10 5 10 0"
+                        BorderBrush="Transparent"
+                        Command="{Binding PrikaziPinTastatura_Command}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" 
+                                    Width="{Binding ActualWidth, ElementName=btnPin}">
+                                <Image Source="/Resursi/Slike/calculatorBeli.png" 
+                                   Height="50" 
+                                   Width="50" 
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0">
+                                </Image>
+                                <TextBlock Text="PIN LOGIN"
+                                       TextWrapping="Wrap"
+                                       Foreground="WhiteSmoke"
+                                       FontSize="15"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right">
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Width="{Binding ActualWidth, ElementName=grdMeni}"
+                        Name="btnUser"
+                        Height="50"
+                        Background="Transparent"
+                        HorizontalAlignment="Left"
+                        Margin="10 5  10 20"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        BorderBrush="Transparent"
+                            Command="{Binding PrikaziUserTastatura_Command}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    Width="{Binding ActualWidth, ElementName=btnUser}">
+                                <Grid HorizontalAlignment="Left">
+                                    <Image Source="/Resursi/Slike/userlogin.png" 
+                                   Height="50" 
+                                   Width="50" 
+                                   Margin="0,0,10,0"
+                                   VerticalAlignment="Center">
+                                    </Image>
+                                </Grid>
+
+                                <TextBlock Text="USER LOGIN"
+                                       TextWrapping="Wrap"
+                                       Foreground="WhiteSmoke"
+                                       FontSize="15"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right">
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Separator Margin="20 0"></Separator>
+                    <Button Width="{Binding ActualWidth, ElementName=grdMeni}"
+                    Grid.Row="2"
+                    Height="50"
+                    VerticalAlignment="Bottom"
+                    Background="Transparent"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    Margin="15"
+                    BorderBrush="Transparent"
+                    Command="{Binding Zatvori_Command}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resursi/Slike/exit8.png" 
+                               Width="50" 
+                               Height="50"
+                               Margin="0,0,10,0"
+                               VerticalAlignment="Center">
+                                </Image>
+                                <TextBlock Text="IZLAZ"
+                                           TextWrapping="Wrap"
+                                       Foreground="WhiteSmoke"
+                                       FontSize="15"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right">
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+
+                    </Button>
+                </StackPanel>
+                <Grid.BitmapEffect>
+                    <DropShadowBitmapEffect Color="#333333" 
+                                        Direction="360" 
+                                        ShadowDepth="0" 
+                                        Opacity="1">
+
+                    </DropShadowBitmapEffect>
+                </Grid.BitmapEffect>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <!--TASTATURE-->
+                <Border 
+                    x:Name="brdTastatura"
+                    Width="700"
+                    Height="400"
+                    Visibility="{Binding prikazTastatura}"
+                    CornerRadius="5"
+                    Background="Black">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="4*"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <PasswordBox x:Name="pb"
+                                Margin="10"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="30"
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                >
+                        </PasswordBox>
+                        <Grid x:Name="tasteriMalaSlova"
+                      Grid.Row="1"
+                          Margin="10 0 10 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="q"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="q"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="w"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="w"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="e"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="e"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="r"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="r"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="t"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="t"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="y"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="y"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="u"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="u"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="i"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="i"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="o"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="o"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="p"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="p"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="a"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="a"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="s"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="s"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="d"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="d"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="f"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="f"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="g"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="g"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="h"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="h"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                                    FontWeight="Bold"
+                               FontSize="17"
+                               Text="j"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="j"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="k"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="k"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="l"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="l"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="."
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="."></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="0">
+                                <Image Source="/Resursi/Slike/shiftBeli.png"
+                                       Margin="10">
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuSlova_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="z"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="z"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="x"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="x"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="c"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="c"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="v"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="v"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="b"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="b"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="n"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="n"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="m"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="m"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=","
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=","></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="9">
+                                <Image Source="/Resursi/Slike/deleteBeli.png"
+                                       Margin="10">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TastaturaObrisi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="123?"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuBrojevi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="@"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="@"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                            Grid.ColumnSpan="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               Text=""
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=" "></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                FontWeight="Bold"
+                               Text="_"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="_"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="-"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="-"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="/"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="/"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                        <Grid x:Name="tasteriVelikaSlova"
+                      Grid.Row="1"
+                              Visibility="Hidden"
+                          Margin="10 0 10 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="Q"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="Q"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="W"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="W"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="E"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="E"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="R"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="R"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="T"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="T"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="Y"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="Y"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="U"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="U"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="I"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="I"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="O"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="O"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="P"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="P"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="A"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="A"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="S"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="S"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="D"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="D"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="F"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="F"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="G"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="G"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="H"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="H"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                                    FontWeight="Bold"
+                               FontSize="17"
+                               Text="J"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="J"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="K"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="K"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="L"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="L"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="."
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="."></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="0">
+                                <Image Source="/Resursi/Slike/shiftBeli.png"
+                                       Margin="10">
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuSlova_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="Z"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="Z"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="X"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="X"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="C"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="C"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="V"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="V"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="B"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="B"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="N"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="N"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="M"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="M"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=","
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=","></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="9">
+                                <Image Source="/Resursi/Slike/deleteBeli.png"
+                                       Margin="10">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TastaturaObrisi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="123?"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuBrojevi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="@"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="@"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                            Grid.ColumnSpan="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               Text=""
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=" "></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                FontWeight="Bold"
+                               Text="_"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="_"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="-"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="-"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="/"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="/"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                        <Grid x:Name="tasteriBrojevi"
+                      Grid.Row="1"
+                          Margin="10 0 10 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="1"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="1"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="2"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="2"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="3"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="3"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="4"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="4"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="5"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="5"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="6"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="6"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="7"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="7"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="8"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="8"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="9"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="9"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="0"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="0"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="'"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="'"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="!"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="!"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="#"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="#"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="$"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="$"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="%"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="%"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="/"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="/"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                                    FontWeight="Bold"
+                               FontSize="17"
+                               Text="-"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="-"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="*"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="*"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="("
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="("></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=")"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=")"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="0">
+                                <Image Source="/Resursi/Slike/shiftBeli.png"
+                                       Margin="10">
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuSlova_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="\"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="\"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="-"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="-"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="3">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="+"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="+"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=";"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=";"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="5">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=":"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=":"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="6">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text=","
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=","></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="_"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="_"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="?"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="?"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="9">
+                                <Image Source="/Resursi/Slike/deleteBeli.png"
+                                       Margin="10">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TastaturaObrisi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="123?"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding PrikaziTastaturuBrojevi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="@"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="@"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                            Grid.ColumnSpan="4">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               Text=""
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter=" "></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="7">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                FontWeight="Bold"
+                               Text="["
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="["></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="8">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="]"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="]"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="9">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                                    FontWeight="Bold"
+                               Text="~"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="~"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="10 5 5 10">
+                                <Image Source="/Resursi/Slike/izlazbeli.png" Margin="7">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding UgasiTastaturu_Command}" CommandParameter="Q"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5 5 10 10"
+                                Grid.Column="1">
+                                <Image Source="/Resursi/Slike/login.png" Margin="10">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding Prijava_Command}" CommandParameter="Q"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                </Border>
+                <Border 
+                    x:Name="brdPinTastatura"
+                    Width="300"
+                    Height="450"
+                    Visibility="{Binding prikazPinTastatura}"
+                    CornerRadius="5"
+                    Background="Black">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="4*"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <PasswordBox x:Name="pbPin"
+                                Margin="10"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                FontSize="30"
+                                Foreground="White"
+                                Background="Transparent"
+                                BorderThickness="0">
+                        </PasswordBox>
+                        <Grid x:Name="tasteriPin"
+                                Grid.Row="1"
+                                Margin="10 0 10 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="1"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="1"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="2"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="2"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="0"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="3"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="3"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="4"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="4"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="5"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="5"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="1"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="6"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="6"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="7"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="7"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="1">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="8"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="8"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="2"
+                                Grid.Column="2">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="9"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="9"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="0">
+                                <TextBlock 
+                               Foreground="White"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Text="0"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                                </TextBlock>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TasterKlik_Command}" CommandParameter="0"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                    Grid.ColumnSpan="2">
+                                <Image Source="/Resursi/Slike/deleteBeli.png"
+                                       Margin="15">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding TastaturaObrisi_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="10 5 5 10">
+                                <Image Source="/Resursi/Slike/izlazbeli.png" Margin="7">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding UgasiTastaturu_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                            <Border Background="#41424c"
+                                CornerRadius="3"
+                                Margin="5 5 10 10"
+                                Grid.Column="1">
+                                <Image Source="/Resursi/Slike/login.png" Margin="10">
+
+                                </Image>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding Prijava_Command}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

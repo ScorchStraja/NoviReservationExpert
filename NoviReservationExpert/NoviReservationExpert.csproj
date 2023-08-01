@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resursi\Slike\calculatorBeli.png" />
+    <None Remove="Resursi\Slike\Covek.png" />
+    <None Remove="Resursi\Slike\DefaultSema.png" />
+    <None Remove="Resursi\Slike\deleteBeli.png" />
+    <None Remove="Resursi\Slike\Desno.png" />
+    <None Remove="Resursi\Slike\Devojcica.png" />
+    <None Remove="Resursi\Slike\Dole.png" />
+    <None Remove="Resursi\Slike\exit8.png" />
+    <None Remove="Resursi\Slike\exitSivi.png" />
+    <None Remove="Resursi\Slike\Gore.png" />
+    <None Remove="Resursi\Slike\izlaz.png" />
+    <None Remove="Resursi\Slike\izlazbeli.png" />
+    <None Remove="Resursi\Slike\Levo.png" />
+    <None Remove="Resursi\Slike\login.png" />
+    <None Remove="Resursi\Slike\objekti.png" />
+    <None Remove="Resursi\Slike\pitanje.png" />
+    <None Remove="Resursi\Slike\plus.png" />
+    <None Remove="Resursi\Slike\pocetnaSlika2.jpg" />
+    <None Remove="Resursi\Slike\Pretraga.png" />
+    <None Remove="Resursi\Slike\Rezervacija_Belo.png" />
+    <None Remove="Resursi\Slike\Rezervacija_crno.png" />
+    <None Remove="Resursi\Slike\shiftBeli.png" />
+    <None Remove="Resursi\Slike\Sto.png" />
+    <None Remove="Resursi\Slike\Sto_Belo.png" />
+    <None Remove="Resursi\Slike\upozorenje.png" />
+    <None Remove="Resursi\Slike\userlogin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resursi\Slike\calculatorBeli.png" />
+    <Resource Include="Resursi\Slike\Covek.png" />
+    <Resource Include="Resursi\Slike\DefaultSema.png" />
+    <Resource Include="Resursi\Slike\deleteBeli.png" />
+    <Resource Include="Resursi\Slike\Desno.png" />
+    <Resource Include="Resursi\Slike\Devojcica.png" />
+    <Resource Include="Resursi\Slike\Dole.png" />
+    <Resource Include="Resursi\Slike\exit8.png" />
+    <Resource Include="Resursi\Slike\exitSivi.png" />
+    <Resource Include="Resursi\Slike\Gore.png" />
+    <Resource Include="Resursi\Slike\izlaz.png" />
+    <Resource Include="Resursi\Slike\izlazbeli.png" />
+    <Resource Include="Resursi\Slike\Levo.png" />
+    <Resource Include="Resursi\Slike\login.png" />
+    <Resource Include="Resursi\Slike\objekti.png" />
+    <Resource Include="Resursi\Slike\pitanje.png" />
+    <Resource Include="Resursi\Slike\plus.png" />
+    <Resource Include="Resursi\Slike\pocetnaSlika2.jpg" />
+    <Resource Include="Resursi\Slike\Pretraga.png" />
+    <Resource Include="Resursi\Slike\Rezervacija_Belo.png" />
+    <Resource Include="Resursi\Slike\Rezervacija_crno.png" />
+    <Resource Include="Resursi\Slike\shiftBeli.png" />
+    <Resource Include="Resursi\Slike\Sto.png" />
+    <Resource Include="Resursi\Slike\Sto_Belo.png" />
+    <Resource Include="Resursi\Slike\upozorenje.png" />
+    <Resource Include="Resursi\Slike\userlogin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="View\v_Meni.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
