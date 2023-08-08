@@ -255,8 +255,12 @@ namespace NoviReservationExpert.ViewModel
                 ;
                 DateTime vremeOd = DateTime.Now;
                 DateTime vremeDo = DateTime.Now;
+                DateTime datum = DateTime.Today;
+                DateTime.TryParse(Datum, out datum);
                 DateTime.TryParse(VremeOd, out vremeOd);
                 DateTime.TryParse(VremeDo, out vremeDo);
+                vremeOd = datum.Date + vremeOd.TimeOfDay;
+                vremeDo = datum.Date + vremeDo.TimeOfDay;
                 ObservableCollection<re_Rezervacija> poklapanja = Broker.BrokerSelect.dajSesiju().VratiRezervacijeKojeSePoklapajuSaVremenom_ZaSto(vremeOd, vremeDo, tb.Text);
                 bool poklapanje = false;
                 if(poklapanja.Any(x => x.Id == Rezervacija.Id))
@@ -284,7 +288,6 @@ namespace NoviReservationExpert.ViewModel
                 Sto = tb.Text;
             }
         }
-
         private void PronadjiGosta_Metoda(object obj)
         {
             string filtertext = "";
@@ -307,16 +310,15 @@ namespace NoviReservationExpert.ViewModel
             }
             return;
         }
-
         private void PrimeniPromene_Metoda(object obj)
         {
             DateTime vreme = DateTime.Now;
             DateTime.TryParse(Datum, out vreme);
-            Rezervacija.Datum = vreme;
+            Rezervacija.Datum = vreme.Date;
             DateTime.TryParse(VremeOd, out vreme);
-            Rezervacija.VremeOd = vreme;
+            Rezervacija.VremeOd = Rezervacija.Datum.Date + vreme.TimeOfDay;
             DateTime.TryParse(VremeDo, out vreme);
-            Rezervacija.VremeDo = vreme;
+            Rezervacija.VremeDo = Rezervacija.Datum.Date + vreme.TimeOfDay;
             Rezervacija.Sto = Sto;
             Rezervacija.BrojOdraslih = Convert.ToInt32(BrojOdraslih);
             Rezervacija.BrojDece = Convert.ToInt32(BrojDece);
@@ -333,7 +335,6 @@ namespace NoviReservationExpert.ViewModel
             Globalno.Varijable.RadniProstor.OsveziRadniProstor();
             this.ZatvoriFormu();
         }
-
         private void Odustani_Metoda(object obj)
         {
             this.ZatvoriFormu();
