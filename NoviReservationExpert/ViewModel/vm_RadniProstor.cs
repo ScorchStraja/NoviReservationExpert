@@ -138,10 +138,12 @@ namespace NoviReservationExpert.ViewModel
         ObservableCollection<re_Sema> Seme = new ObservableCollection<re_Sema>();
         ObservableCollection<re_Sto> Stolovi = new ObservableCollection<re_Sto>();
         ObservableCollection<re_Rezervacija> Rezervacije = new ObservableCollection<re_Rezervacija>();
+        List<uc_Notifikacija> Notifikacije = new List<uc_Notifikacija>();
         List<uc_Rezervacija> BrdRezervacije = new List<uc_Rezervacija>(); //rezervacije koje se prikazuju, za svaku rezervaciju u Rezervacije, ovde postoji border
         DockPanel dpSemeIDugmad;
         DockPanel dpVremena;
         DockPanel dpStolovi;
+        StackPanel spNotifikacije;
         ScrollViewer svCanvas;
         Canvas canvasPrikaz;
         public int sirinaVremena = 60;
@@ -193,7 +195,7 @@ namespace NoviReservationExpert.ViewModel
         }
         #endregion
 
-        public vm_RadniProstor(DockPanel dpSemeIDugmad, DockPanel dpStolovi, DockPanel dpVremena, Canvas prikaz, ScrollViewer svCanvas)
+        public vm_RadniProstor(DockPanel dpSemeIDugmad, DockPanel dpStolovi, DockPanel dpVremena, Canvas prikaz, ScrollViewer svCanvas, StackPanel spNotifikacije)
         {
             Zatvori_Command = new RelayCommand(Zatvori_Metoda);
             OtvoriRadniMeni_Command = new RelayCommand(OtvoriRadniMeni_Metoda);
@@ -205,6 +207,7 @@ namespace NoviReservationExpert.ViewModel
             this.dpStolovi = dpStolovi;
             this.dpVremena = dpVremena;
             this.svCanvas = svCanvas;
+            this.spNotifikacije = spNotifikacije;
             this.dpSemeIDugmad = dpSemeIDugmad;
             foreach (re_Sema sema in Seme)
             {
@@ -214,10 +217,13 @@ namespace NoviReservationExpert.ViewModel
                 }
             }
 
-            this.IzabranDatum = DateTime.Today;
 
             PopuniVremena();
             PopuniPrikazSema();
+
+            this.IzabranDatum = DateTime.Today;
+
+            UpdateNotifikacije();
 
             foreach (MojBorderSema brd1 in dpSemeIDugmad.Children.OfType<MojBorderSema>())
             {
@@ -227,7 +233,6 @@ namespace NoviReservationExpert.ViewModel
                 }
             }
         }
-
         private void PopuniPrikazRezervacijama(DateTime datum)
         {
             for(int i = canvasPrikaz.Children.Count - 1; i >= 0; i--)
@@ -259,7 +264,6 @@ namespace NoviReservationExpert.ViewModel
                 Canvas.SetTop(brdRez, visinaVremena + xpozicija * visinaStola);
             }
         }
-
         #region PomeranjeRezervacija
         bool pocetakPomeranja = false;
         bool pomeranje = false;
@@ -290,29 +294,54 @@ namespace NoviReservationExpert.ViewModel
             {
                 v_DetaljiRezervacije prozor = new v_DetaljiRezervacije(rezervacija.Rezervacija);
                 prozor.ShowDialog();
+                pocetakPomeranja = false;
             }
-            pocetakPomeranja = false;
-            pomeranje = false;
-            double koordinataX = Mouse.GetPosition(canvasPrikaz).X - sirinaStola - sirinaVremena;
-            double koordinataY = Mouse.GetPosition(canvasPrikaz).Y - visinaVremena;
+            if (pocetakPomeranja)
+            {
 
-            int xbrojCelina = Convert.ToInt32(koordinataX / sirinaVremena - 1);
-            if (xbrojCelina < 0) xbrojCelina = 0;
-            Canvas.SetLeft(rezervacijaKojaSePomera, xbrojCelina * sirinaVremena + sirinaStola);
+                pocetakPomeranja = false;
+                pomeranje = false;
+                double koordinataX = Mouse.GetPosition(canvasPrikaz).X - sirinaStola - sirinaVremena;
+                double koordinataY = Mouse.GetPosition(canvasPrikaz).Y - visinaVremena;
 
-            int ybrojCelina = Convert.ToInt32(koordinataY / visinaStola - 1);
-            if (ybrojCelina < 0) ybrojCelina = 0;
-            Canvas.SetTop(rezervacijaKojaSePomera, ybrojCelina * visinaStola + visinaVremena);
+                int xbrojCelina = Convert.ToInt32(koordinataX / sirinaVremena - 1);
+                if (xbrojCelina < 0) xbrojCelina = 0;
+                
 
-            rezervacija.Rezervacija.Sto = Stolovi[ybrojCelina].Sto;
-            TimeSpan trajanje = rezervacija.Rezervacija.VremeDo - rezervacija.Rezervacija.VremeOd;
-            rezervacija.Rezervacija.VremeOd = DateTime.Today.AddHours(7).AddMinutes(xbrojCelina * 30);
-            rezervacija.Rezervacija.VremeDo = rezervacija.Rezervacija.VremeOd.AddMinutes(trajanje.TotalMinutes);
-            rezervacija.PromeniVreme(rezervacija.Rezervacija.VremeOd, rezervacija.Rezervacija.VremeDo);
-            Broker.BrokerUpdate.dajSesiju().UpdateRezervaciju(rezervacija.Rezervacija);
+                int ybrojCelina = Convert.ToInt32(koordinataY / visinaStola - 1);
+                if (ybrojCelina < 0) ybrojCelina = 0;
+
+                TimeSpan trajanje = rezervacija.Rezervacija.VremeDo - rezervacija.Rezervacija.VremeOd;
+
+                DateTime osnova = rezervacija.Rezervacija.VremeOd.Date;
+
+                DateTime pocetak = osnova.AddHours(7).AddMinutes(xbrojCelina * 30);
+                DateTime kraj = pocetak.AddMinutes(trajanje.TotalMinutes);
+
+                ObservableCollection<re_Rezervacija> poklapanja = Broker.BrokerSelect.dajSesiju().VratiRezervacijeKojeSePoklapajuSaVremenom_ZaSto(pocetak,kraj, Stolovi[ybrojCelina].Sto);
+
+                if (poklapanja.Any())
+                {
+                    v_MessageBox poruka = new v_MessageBox("U datom terminu već postoji rezervacija. Da li želite da nastavite?");
+                    poruka.ShowDialog();
+                }
+                if (!Globalno.Varijable.sacuvanePromene)
+                {
+                    return;
+                }
+
+                Canvas.SetLeft(rezervacijaKojaSePomera, xbrojCelina * sirinaVremena + sirinaStola);
+                Canvas.SetTop(rezervacijaKojaSePomera, ybrojCelina * visinaStola + visinaVremena);
+
+                rezervacija.Rezervacija.Sto = Stolovi[ybrojCelina].Sto;
+                
+                rezervacija.Rezervacija.VremeOd = pocetak;
+                rezervacija.Rezervacija.VremeDo = kraj;
+                rezervacija.PromeniVreme(rezervacija.Rezervacija.VremeOd, rezervacija.Rezervacija.VremeDo);
+                Broker.BrokerUpdate.dajSesiju().UpdateRezervaciju(rezervacija.Rezervacija);
+            }
         }
         #endregion
-
         public void OsveziRadniProstor()
         {
             PopuniPrikazRezervacijama(IzabranDatum);
@@ -368,7 +397,6 @@ namespace NoviReservationExpert.ViewModel
                 {
                     brd.BorderThickness = new System.Windows.Thickness(0, 1, 2, 0);
                 }
-
                 brd.BorderBrush = Brushes.Black;
                 StackPanel sp = new StackPanel();
                 brd.Child = sp;
@@ -376,20 +404,35 @@ namespace NoviReservationExpert.ViewModel
                 sp.Margin = new System.Windows.Thickness(0, 0, 0, 0);
                 sp.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                 sp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                Grid slika = new Grid();
+                slika.Margin = new Thickness(2, 0, 0, 0);
                 Image img = new Image();
                 BitmapImage bi = new BitmapImage();
                 bi.BeginInit();
-                bi.UriSource = new Uri("/Resursi/Slike/Sto.PNG", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                img.Margin = new System.Windows.Thickness(10, 0, 0, 0);
+                bi.UriSource = new Uri("/Resursi/Slike/Sto_2.PNG", UriKind.RelativeOrAbsolute);
+                bi.EndInit();              
                 img.Source = bi;
-                img.Height = 20;
-                img.Width = 20;
+                img.Height = 35;
+                img.Width = 35;
+                img.HorizontalAlignment = HorizontalAlignment.Center;
+                img.VerticalAlignment = VerticalAlignment.Center;
+                TextBlock brojljudi = new TextBlock();
+                brojljudi.Text = sto.BrojOsoba.ToString();
+                brojljudi.Foreground = Brushes.White;
+                brojljudi.FontSize = 17;
+                brojljudi.HorizontalAlignment = HorizontalAlignment.Center;
+                brojljudi.VerticalAlignment = VerticalAlignment.Center;
+                brojljudi.Margin = new Thickness(0, 0, 0, 2);
+                slika.Children.Add(img);
+                slika.Children.Add(brojljudi);
                 TextBlock tb = new TextBlock();
+                tb.HorizontalAlignment = HorizontalAlignment.Center;
+                tb.VerticalAlignment = VerticalAlignment.Center;
                 tb.Text = sto.ToString();
+                tb.FontWeight = FontWeights.Bold;
                 tb.FontSize = 16;
                 tb.Margin = new System.Windows.Thickness(10, 0, 0, 0);
-                sp.Children.Add(img); 
+                sp.Children.Add(slika); 
                 sp.Children.Add(tb);
 
                 //dodavanje linija radi lakseg pregleda
@@ -410,7 +453,7 @@ namespace NoviReservationExpert.ViewModel
                 canvasPrikaz.Children.Add(linija);
 
             }
-            canvasPrikaz.Height = visinaStola * Stolovi.Count;
+            canvasPrikaz.Height = visinaStola * (Stolovi.Count + 1) - visinaVremena + 18; //18 je visina scrollbar-a
         }
         private void PromeniSemu(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -453,6 +496,7 @@ namespace NoviReservationExpert.ViewModel
                 rec.Fill = Brushes.Black;
                 sp.Children.Add(rec);
                 tb.Text = dt.ToString("HH:mm");
+                tb.FontWeight = FontWeights.Bold;
                 tb.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
                 tb.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                 dt = dt.AddMinutes(30);
@@ -520,7 +564,6 @@ namespace NoviReservationExpert.ViewModel
         }
 
         static v_Meni meni = new v_Meni("-","-");
-
         //pozicija misa pri kliku
         double mouseX;
         double mouseY;
@@ -604,6 +647,18 @@ namespace NoviReservationExpert.ViewModel
             v_Login prozor = new v_Login();
             prozor.Show();
             this.ZatvoriFormu();
+        }
+        public void UpdateNotifikacije()
+        {
+            spNotifikacije.Children.Clear();
+            Notifikacije.Clear();
+            ObservableCollection<re_Rezervacija> reNotifikacije = Broker.BrokerSelect.dajSesiju().VratiNotifikacije(DateTime.Now, DateTime.Today);
+            foreach(re_Rezervacija rezervacija in reNotifikacije)
+            {
+                uc_Notifikacija notifikacija = new uc_Notifikacija(rezervacija);
+                Notifikacije.Add(notifikacija);
+                spNotifikacije.Children.Add(notifikacija);
+            }
         }
     }
 }

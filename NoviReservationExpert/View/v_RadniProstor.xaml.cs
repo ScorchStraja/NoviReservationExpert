@@ -28,7 +28,7 @@ namespace NoviReservationExpert.View
         public v_RadniProstor()
         {
             InitializeComponent();
-            vm = new vm_RadniProstor(dpSemeIDugmad, dpStolovi, dpVremena, prikaz, svCanvas);
+            vm = new vm_RadniProstor(dpSemeIDugmad, dpStolovi, dpVremena, prikaz, svCanvas, spNotifikacije);
             Globalno.Varijable.RadniProstor = vm;
             this.DataContext = vm;
 
@@ -48,6 +48,7 @@ namespace NoviReservationExpert.View
         {
             prikazTrenutnogVremena.Text = DateTime.Now.ToString("HH:mm");
             Canvas.SetLeft(crvenaLinija, Canvas.GetLeft(crvenaLinija) + 2); // ako izmedju, npr. 14:00 i 14:30 ima 60 px, to znaci da za 30 minuta predje 60px, sto je 2px to 1m
+            vm.UpdateNotifikacije();
         }
 
         private void PomeriPrikazLevo(object sender, RoutedEventArgs e)
@@ -102,8 +103,8 @@ namespace NoviReservationExpert.View
                 }
             } else
             {
-                Canvas.SetTop(dpVremena, 0);
-                Canvas.SetTop(crvenaLinija, 0);
+                Canvas.SetTop(dpVremena, svCanvas.VerticalOffset);
+                Canvas.SetTop(crvenaLinija, svCanvas.VerticalOffset);
             }
         }
     }

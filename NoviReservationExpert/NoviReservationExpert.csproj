@@ -31,6 +31,7 @@
     <None Remove="Resursi\Slike\Rezervacija_crno.png" />
     <None Remove="Resursi\Slike\shiftBeli.png" />
     <None Remove="Resursi\Slike\Sto.png" />
+    <None Remove="Resursi\Slike\Sto_2.png" />
     <None Remove="Resursi\Slike\Sto_Belo.png" />
     <None Remove="Resursi\Slike\upozorenje.png" />
     <None Remove="Resursi\Slike\userlogin.png" />
@@ -67,6 +68,7 @@
     <Resource Include="Resursi\Slike\Rezervacija_crno.png" />
     <Resource Include="Resursi\Slike\shiftBeli.png" />
     <Resource Include="Resursi\Slike\Sto.png" />
+    <Resource Include="Resursi\Slike\Sto_2.png" />
     <Resource Include="Resursi\Slike\Sto_Belo.png" />
     <Resource Include="Resursi\Slike\upozorenje.png" />
     <Resource Include="Resursi\Slike\userlogin.png" />

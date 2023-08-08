@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NoviReservationExpert.View" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+        xmlns:uc="clr-namespace:NoviReservationExpert.View.UserKontrole"
         WindowStyle="None"
         WindowState="Maximized" 
         WindowStartupLocation="CenterScreen" 
@@ -45,7 +46,11 @@
                        Foreground="White"
                        HorizontalAlignment="Center"></TextBlock>
             </DockPanel>
-
+            <ScrollViewer DockPanel.Dock="Top"
+                          VerticalScrollBarVisibility="Hidden">
+                <StackPanel Orientation="Vertical"
+                            x:Name="spNotifikacije"></StackPanel>
+            </ScrollViewer>
         </DockPanel>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -96,14 +101,14 @@
                             <DockPanel x:Name="dpVremena"
                                        Canvas.Top="0"
                                    LastChildFill="False"
-                                   Panel.ZIndex="9997">
+                                   Panel.ZIndex="9999">
                             </DockPanel>
 
                             <DockPanel Margin="1,0,0,0"
                                    x:Name="dpStolovi"
                                        Canvas.Left="0"
                                    LastChildFill="False"
-                                   Panel.ZIndex="9999">
+                                   Panel.ZIndex="9997">
                             </DockPanel>
                             <Border Background="White"
                                     x:Name="brdBlock"
@@ -119,6 +124,15 @@
             <DockPanel Grid.Row="1"
                        x:Name="dpSemeIDugmad"
                        LastChildFill="False">
+                <Border Width="350"
+                        DockPanel.Dock="Left"
+                        CornerRadius="3"
+                        Margin="5"
+                        Background="LightGray">
+                    <DockPanel LastChildFill="False">
+                        <uc:uc_Kalendar Width="200"></uc:uc_Kalendar>
+                    </DockPanel>
+                </Border>
                 <Border Width="250"
                         DockPanel.Dock="Left"
                         CornerRadius="3"

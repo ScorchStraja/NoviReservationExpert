@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="NoviReservationExpert.View.UserKontrole.uc_Notifikacija"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NoviReservationExpert.View.UserKontrole"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="250"
+             >
+    <Border CornerRadius="3"
+            Name="brdRoot"
+            Background="#284b63"
+            Margin="0,0,0,5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1"
+                    Margin="2"
+                    BorderThickness="0.5"
+                    BorderBrush="White"
+                    CornerRadius="3">
+                <UniformGrid Columns="2"
+                             Rows="2">
+                    <Image Source="/Resursi/Slike/Covek.png"/>
+                    <TextBlock x:Name="brOdraslih" 
+                               HorizontalAlignment="Center" 
+                               Text="0"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+                    <Image Source="/Resursi/Slike/Devojcica.png"/>
+                    <TextBlock x:Name="brDece" 
+                               HorizontalAlignment="Center" 
+                               Text="0"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+                </UniformGrid>
+            </Border>
+            <Border Grid.Column="0"
+                    Margin="2"
+                    BorderBrush="White"
+                    BorderThickness="0.5"
+                    CornerRadius="3">
+                <UniformGrid Rows="3">
+                    <TextBlock x:Name="tbNosiocRezervacije" 
+                               HorizontalAlignment="Left"
+                               Margin="5,0,0,0"
+                               Text="N.N."
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+                    <TextBlock x:Name="tbVremeISto" 
+                               HorizontalAlignment="Left"
+                               Margin="5,0,0,0"
+                               Text="Sto - Vreme"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+                    <TextBlock x:Name="tbObjekat" 
+                               HorizontalAlignment="Left"
+                               Margin="5,0,0,0"
+                               Text="Sema"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+                </UniformGrid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="NoviReservationExpert.View.UserKontrole.uc_Kalendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NoviReservationExpert.View.UserKontrole"
+             mc:Ignorable="d" 
+           
+             d:DesignHeight="150" d:DesignWidth="250">
+    <Border BorderBrush="#284b63"
+            CornerRadius="3"
+            BorderThickness="1"
+            Background="LightGray">
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                        BorderThickness="0,0,0,1"
+                        BorderBrush="Gray">
+                <DockPanel x:Name="dpBiranjeMeseci"
+                       >
+                    <Button BorderBrush="Transparent"                       
+                        Width="35"
+                        DockPanel.Dock="Left"
+                        Click="PromeniMesec_Nazad">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Polygon Points="20,20 20,0, 0,10" Stroke="#284b63" Fill="#284b63"/>
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Gray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button BorderBrush="Transparent"                       
+                        Width="35"
+                        DockPanel.Dock="Right"
+                        Click="PromeniMesec_Napred">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Polygon Points="0,20 20,10, 0,0" Stroke="#284b63" Fill="#284b63" />
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Gray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                    </Button>
+                    <TextBlock Text="" 
+                               x:Name="tbMesec"
+                           FontSize="15"
+                           Foreground="#284b63"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           ></TextBlock>
+                </DockPanel>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <UniformGrid Grid.Row="0"
+                         Columns="7"
+                         Rows="1">
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Pon."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Uto."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Sre."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Čet."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Pet."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Sub."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1,0,0,1"
+                            BorderBrush="Gray">
+                        <TextBlock Text="Ned."
+                                   HorizontalAlignment="Center"
+                                   Foreground="#284b63"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"></TextBlock>
+                    </Border>
+                </UniformGrid>
+                <UniformGrid Rows="6"
+                         Columns="7"
+                         Grid.Row="1"
+                             x:Name="ugDatumi">
+                </UniformGrid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

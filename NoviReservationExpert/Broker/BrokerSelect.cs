@@ -417,7 +417,111 @@ namespace NoviReservationExpert.Broker
                 return new ObservableCollection<re_Rezervacija>();
             }
         }
+        public re_Rezervacija VratiRezervacijuPoId(int id)
+        {
+            try
+            {
+                re_Rezervacija x = new re_Rezervacija();
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
 
+                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Id=@id";
+
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        komanda.Parameters.AddWithValue("@Id", id);
+
+                        SqlDataReader reader = komanda.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            x = new re_Rezervacija()
+                            {
+                                Id = reader["id"] == DBNull.Value ? 1 : Convert.ToInt32(reader["id"]),
+                                Datum = reader["Dtm"] == DBNull.Value ? DateTime.Today : reader["Dtm"] as DateTime? ?? DateTime.Now,
+                                VremeOd = reader["Vreme_Od"] == DBNull.Value ? DateTime.Now : reader["Vreme_Od"] as DateTime? ?? DateTime.Now,
+                                VremeDo = reader["Vreme_Do"] == DBNull.Value ? DateTime.Now.AddMinutes(120) : reader["Vreme_Do"] as DateTime? ?? DateTime.Now,
+                                Objekat = reader["Obj"] == DBNull.Value ? Globalno.Varijable.Objekat.Objekat : Convert.ToInt32(reader["Obj"]),
+                                Sema = reader["Sema"] == DBNull.Value ? "-" : reader["Sema"].ToString() ?? "-",
+                                Grupa = reader["Grupa"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Grupa"]),
+                                Napomena = reader["Napomena"] == DBNull.Value ? "-" : reader["Napomena"].ToString() ?? "-",
+                                Kuhinja = reader["Kuhinja"] == DBNull.Value ? "-" : reader["Kuhinja"].ToString() ?? "-",
+                                IdGost = reader["Gost"] == DBNull.Value ? "0" : reader["Gost"].ToString() ?? "-",
+                                Sto = reader["Sto"] == DBNull.Value ? "0" : reader["Sto"].ToString() ?? "-",
+                                Status = reader["Status"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Status"]),
+                                BrojOdraslih = reader["Br_Odraslih"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Br_Odraslih"]),
+                                BrojDece = reader["Br_Dece"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Br_Dece"]),
+                                Korisnik = reader["Korisnik"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Korisnik"]),
+                                Obrisano = reader["Obrisano"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Obrisano"]),
+                                ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
+                                PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
+                                BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
+                            };
+
+                        }
+                    }
+                }
+                return x;
+            }
+            catch
+            {
+                return new re_Rezervacija();
+            }
+        }
+        public ObservableCollection<re_Rezervacija> VratiNotifikacije(DateTime vreme, DateTime izabranDatum)
+        {
+            try
+            {
+                ObservableCollection<re_Rezervacija> lista = new ObservableCollection<re_Rezervacija>();
+
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+
+                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Vreme_Od < @vreme AND Dtm=@datum";
+
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        komanda.Parameters.AddWithValue("@vreme", vreme);
+                        komanda.Parameters.AddWithValue("@datum", izabranDatum.Date);
+
+                        SqlDataReader reader = komanda.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            re_Rezervacija x = new re_Rezervacija()
+                            {
+                                Id = reader["id"] == DBNull.Value ? 1 : Convert.ToInt32(reader["id"]),
+                                Datum = reader["Dtm"] == DBNull.Value ? DateTime.Today : reader["Dtm"] as DateTime? ?? DateTime.Now,
+                                VremeOd = reader["Vreme_Od"] == DBNull.Value ? DateTime.Now : reader["Vreme_Od"] as DateTime? ?? DateTime.Now,
+                                VremeDo = reader["Vreme_Do"] == DBNull.Value ? DateTime.Now.AddMinutes(120) : reader["Vreme_Do"] as DateTime? ?? DateTime.Now,
+                                Objekat = reader["Obj"] == DBNull.Value ? Globalno.Varijable.Objekat.Objekat : Convert.ToInt32(reader["Obj"]),
+                                Sema = reader["Sema"] == DBNull.Value ? "-" : reader["Sema"].ToString() ?? "-",
+                                Grupa = reader["Grupa"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Grupa"]),
+                                Napomena = reader["Napomena"] == DBNull.Value ? "-" : reader["Napomena"].ToString() ?? "-",
+                                Kuhinja = reader["Kuhinja"] == DBNull.Value ? "-" : reader["Kuhinja"].ToString() ?? "-",
+                                IdGost = reader["Gost"] == DBNull.Value ? "0" : reader["Gost"].ToString() ?? "-",
+                                Sto = reader["Sto"] == DBNull.Value ? "0" : reader["Sto"].ToString() ?? "-",
+                                Status = reader["Status"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Status"]),
+                                BrojOdraslih = reader["Br_Odraslih"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Br_Odraslih"]),
+                                BrojDece = reader["Br_Dece"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Br_Dece"]),
+                                Korisnik = reader["Korisnik"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Korisnik"]),
+                                Obrisano = reader["Obrisano"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Obrisano"]),
+                                ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
+                                PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
+                                BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
+                            };
+
+                            lista.Add(x);
+                        }
+                    }
+                }
+                return lista;
+            }
+            catch
+            {
+                return new ObservableCollection<re_Rezervacija>();
+            }
+        }
         public ObservableCollection<re_Gost> VratiGoste()
         {
             try

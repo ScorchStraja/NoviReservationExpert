@@ -31,6 +31,7 @@ namespace NoviReservationExpert.View
 
             if (vm.ZatvoriFormu == null)
                 vm.ZatvoriFormu = new Action(this.Close);
+
         }
     }
 }
