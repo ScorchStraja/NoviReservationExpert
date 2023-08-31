@@ -6,65 +6,121 @@
         xmlns:local="clr-namespace:NoviReservationExpert.View" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         xmlns:uc="clr-namespace:NoviReservationExpert.View.UserKontrole"
-        WindowStyle="None"
         WindowState="Maximized" 
         WindowStartupLocation="CenterScreen" 
         Title="Radni Prostor" Height="1080" Width="1920">
-    <Grid>
+    <Grid Name="gridRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" ></ColumnDefinition>
-            <ColumnDefinition Width="*" MinWidth="250" MaxWidth="250"></ColumnDefinition>
+            <ColumnDefinition Width="0"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-        <Border Grid.Column="1"
-                Background="Black"
-                Opacity="0.6">
-            <Border.Effect>
-                <DropShadowEffect></DropShadowEffect>
-            </Border.Effect>
-        </Border>
-        <DockPanel Grid.Column="1"
-                   LastChildFill="False">
-            <Viewbox DockPanel.Dock="Top"
+        <Grid Grid.Column="1"
+              x:Name="gridNotifikacijeIKalendar"
+              Width="250">
+            <Border Background="WhiteSmoke"
+                    BorderThickness="6,0,0,0"
+                    BorderBrush="DimGray"
+                    >
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+            <DockPanel LastChildFill="False">
+                <Viewbox DockPanel.Dock="Top"
                      >
-                <Calendar 
+                    <Calendar 
                       Grid.Column="1"
-                      Margin="5"
-                      SelectedDate="{Binding IzabranDatum, Mode=TwoWay, NotifyOnSourceUpdated=True}"></Calendar>
-            </Viewbox>
+                      Margin="5,0,0,0"
+                        
+                      SelectedDate="{Binding IzabranDatum, Mode=TwoWay, NotifyOnSourceUpdated=True}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDatesChanged">
+                                <i:InvokeCommandAction Command="{Binding PromenaDatuma_Command}" CommandParameter="q"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Calendar>
+                </Viewbox>
 
-            <DockPanel DockPanel.Dock="Top">
-                <Separator Background="White"
+                <DockPanel DockPanel.Dock="Top">
+                    <Separator Background="DimGray"
                            Height="5"
                            Width="70"></Separator>
-                <Separator Background="White"
+                    <Separator Background="DimGray"
                            DockPanel.Dock="Right"
                            Height="5"
                            Width="70"></Separator>
-                <TextBlock DockPanel.Dock="Left"
+                    <TextBlock DockPanel.Dock="Left"
                        Text="NOTIFIKACIJE"
-                       Foreground="White"
+                       Foreground="DimGray"
                        HorizontalAlignment="Center"></TextBlock>
-            </DockPanel>
-            <ScrollViewer DockPanel.Dock="Top"
+                </DockPanel>
+                <ScrollViewer DockPanel.Dock="Top"
+                              Margin="7,0,2,0"
                           VerticalScrollBarVisibility="Hidden">
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
                             x:Name="spNotifikacije"></StackPanel>
-            </ScrollViewer>
-        </DockPanel>
-        <Grid Grid.Column="0">
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+        
+        <Grid Grid.Column="0"
+              Name="gridDonjiMeni">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
             </Grid.RowDefinitions>
+            <Border Background="#666666"
+                    Panel.ZIndex="100000"
+                    Height="150"
+                    Width="30"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    CornerRadius="3 0 0 3"
+                    MouseLeftButtonDown="OtvoriBocniMeni"
+                    >
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Image Source="/Resursi/Slike/Kalendar_Belo.png"                       
+                       Height="20"
+                       Width="20"
+                           Margin="0,0,0,10"
+                       RenderTransformOrigin="0.5, 0.5">
+                    </Image>
+                    <Image Source="/Resursi/Slike/Notifikacije_Belo.png"                       
+                       Height="20"
+                       Width="20"
+                       RenderTransformOrigin="0.5, 0.5">
+                    </Image>
+                </StackPanel>
+            </Border>
+            <Border Background="#666666"
+                    Panel.ZIndex="100000"
+                    Height="40"
+                    Width="150"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    CornerRadius="3 3 0 0"
+                    MouseLeftButtonDown="OtvoriDonjiMeni"
+                    >
+                <TextBlock Text="Meni"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"></TextBlock>
+            </Border>
             <Grid Grid.Row="0">
                 <Border BorderBrush="DimGray"
-                        BorderThickness="0,0,0,5">
+                        BorderThickness="0,0,0,5"
+                        Visibility="{Binding v_PrikazTabelarni}"
+                        >
                     <ScrollViewer Grid.Row="1"
                               x:Name="svCanvas"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top"
-                              SnapsToDevicePixels="False"
+                              SnapsToDevicePixels="True"
+                                  
                                   ScrollChanged="svCanvas_ScrollChanged"
                               HorizontalScrollBarVisibility="Visible"
                               VerticalScrollBarVisibility="Auto" 
@@ -73,13 +129,15 @@
                             <i:EventTrigger EventName="PreviewMouseRightButtonDown">
                                 <i:InvokeCommandAction Command="{Binding OtvoriRadniMeni_Command}" CommandParameter="q"></i:InvokeCommandAction>
                             </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding ZatvoriMeni_Command}" CommandParameter="q"></i:InvokeCommandAction>
+                            </i:EventTrigger>
                         </i:Interaction.Triggers>
-
-                        <Canvas Width="{Binding SirinaCanvasa}"
-                            x:Name="prikaz"
-                              
+                        <Canvas Width="{Binding SirinaCanvasa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"     
+                                x:Name="prikazTabelarni"
+                                Background="WhiteSmoke"
                                 >
-                            <StackPanel Panel.ZIndex="9998"
+                            <StackPanel Panel.ZIndex="9999999"
                                         Margin="0,24,0,0"
                                         x:Name="crvenaLinija">
                                 <Border Height="17"
@@ -101,384 +159,411 @@
                             <DockPanel x:Name="dpVremena"
                                        Canvas.Top="0"
                                    LastChildFill="False"
-                                   Panel.ZIndex="9999">
+                                   Panel.ZIndex="999999">
                             </DockPanel>
 
                             <DockPanel Margin="1,0,0,0"
                                    x:Name="dpStolovi"
                                        Canvas.Left="0"
                                    LastChildFill="False"
-                                   Panel.ZIndex="9997">
+                                   Panel.ZIndex="999999">
                             </DockPanel>
-                            <Border Background="White"
-                                    x:Name="brdBlock"
+                            <Border Background="WhiteSmoke"
                                     Canvas.Left="0"
                                     Height="39"
                                     Canvas.Top="0"
-                                    Width="50" 
-                                    Panel.ZIndex="9999"></Border>
+                                    Width="200" 
+                                    Panel.ZIndex="0">
+                            </Border>
+                            <Border Background="WhiteSmoke"
+                                    x:Name="brdBlock"
+                                    Canvas.Left="0"
+                                    BorderThickness="0,0,0,1"
+                                    BorderBrush="#444444"
+                                    Height="40"
+                                    Canvas.Top="0"
+                                    Width="70" 
+                                    Panel.ZIndex="9999">
+                            </Border>
                         </Canvas>
                     </ScrollViewer>
                 </Border>
+                <Border Visibility="{Binding v_PrikazSematski}"
+                        x:Name="prikazSematski">
+                    <Grid>
+                        <Canvas Grid.Column="2"
+                                x:Name="canvasSematski">
+                            <Canvas.Background>
+                                <ImageBrush ImageSource="/Resursi/Slike/DefaultSema.png"/>
+                            </Canvas.Background>
+                        </Canvas>
+                    </Grid>
+                </Border>
             </Grid>
-            <DockPanel Grid.Row="1"
+            <Border Grid.Row="1"
+                    BorderBrush="DimGray"
+                    BorderThickness="0,2,0,0"
+                    Background="WhiteSmoke">
+                <DockPanel 
                        x:Name="dpSemeIDugmad"
                        LastChildFill="False">
-                <Border Width="350"
-                        DockPanel.Dock="Left"
-                        CornerRadius="3"
-                        Margin="5"
-                        Background="LightGray">
-                    <DockPanel LastChildFill="False">
-                        <uc:uc_Kalendar Width="200"></uc:uc_Kalendar>
-                    </DockPanel>
-                </Border>
-                <Border Width="250"
-                        DockPanel.Dock="Left"
-                        CornerRadius="3"
-                        Margin="5"
-                        Background="LightGray">
-                    <DockPanel LastChildFill="False">
-                        <DockPanel DockPanel.Dock="Top"
-                                    Margin="5,2,5,0">
-                            <TextBlock Text="Vreme:"
-                                       Width="70"></TextBlock>
-                            <xctk:DateTimePicker Margin="5,0,0,0"
-                                                 Format="Custom"
-                                                 FormatString="HH:mm dd.MM.yyyy"
-                                                 AllowSpin="True"
-                                                 AutoCloseCalendarOnTimeSelection="True"
-                                                 Text="{Binding IzabranoVreme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 UpdateValueOnEnterKey="True"></xctk:DateTimePicker>
-                        </DockPanel>
-                        <DockPanel DockPanel.Dock="Top"
-                                    Margin="5,4,5,0">
-                            <TextBlock Text="Broj gostiju:"
-                                       Width="70"></TextBlock>
-
-                            <TextBox Margin="5,0,0,0"
-                                     HorizontalContentAlignment="Center"
-                                     Text="{Binding BrojGostiju, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        </DockPanel>
-                        <DockPanel DockPanel.Dock="Top"
-                                    Margin="5,4,5,0">
-                            <TextBlock Text="Gost:"
-                                       Width="70"></TextBlock>
-                            <TextBox Margin="5,0,0,0"
-                                     Text="{Binding Gost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        </DockPanel>
-                        <Button BorderBrush="Transparent"
-                                    Margin="5,5,5,0"
-                                    DockPanel.Dock="Top"
-                                    Command="{Binding PronadjiGosta_Command}">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                                </DropShadowBitmapEffect>
-                            </Button.BitmapEffect>
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="3"></Setter>
-                                </Style>
-                            </Button.Resources>
-
-                            <TextBlock Text="Pronađi gosta"
-                                   Foreground="WhiteSmoke"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                   FontSize="14"
-                                   TextWrapping="Wrap">
-                            </TextBlock>
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#284b63"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#427aa1"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                        <Border BorderThickness="0.5"
-                                BorderBrush="DimGray"
-                                DockPanel.Dock="Top"
-                                Margin="5,10,5,0"></Border>
-                        <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
-                                Height="25"
-                        DockPanel.Dock="Bottom"
-                        Command="{Binding NadjiSlobodanSto_Command}">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                                </DropShadowBitmapEffect>
-                            </Button.BitmapEffect>
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="3"></Setter>
-                                </Style>
-                            </Button.Resources>
-                            <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center">
-                                <Image Source="/Resursi/Slike/Pretraga.png" Width ="15" Height="15"
-                                       Margin="0,0,5,0"
-                                       VerticalAlignment="Center"></Image>
-                                <TextBlock Text="Nađi slobodan sto"
-                                   Foreground="WhiteSmoke"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                   FontSize="14"
-                                   TextWrapping="Wrap">
-                                </TextBlock>
-                            </StackPanel>
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Background" Value="#284b63"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#427aa1"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </DockPanel>
-                </Border>
-                <Button BorderBrush="Transparent"
+                    <Button BorderBrush="Transparent"
                         Margin="5 5 5 5"
                         Width="150"
-                        DockPanel.Dock="Right"
-                        Command="{Binding Zatvori_Command}">
-                    <Button.BitmapEffect>
-                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+                        DockPanel.Dock="Left"
+                        Command="{Binding DodajNovuRezervaciju_Command}">
+                        <Button.BitmapEffect>
+                            <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
 
-                        </DropShadowBitmapEffect>
-                    </Button.BitmapEffect>
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="3"></Setter>
-                        </Style>
-                    </Button.Resources>
-                    <StackPanel>
-                        <Image Source="/Resursi/Slike/izlaz.png" Width ="40" Height="40" ></Image>
-                        <TextBlock Text="Izlaz"
+                            </DropShadowBitmapEffect>
+                        </Button.BitmapEffect>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Image Source="/Resursi/Slike/Plus.png" Width ="40" Height="40" ></Image>
+                            <TextBlock Text="Nova rezervacija"
                                    Foreground="WhiteSmoke"
                                            HorizontalAlignment="Center"
                                    FontSize="16"
                                    TextWrapping="Wrap"
                                    FontWeight="Bold">
-                        </TextBlock>
-                    </StackPanel>
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#d11a2a"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8b0000"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Border Width="250"
+                            </TextBlock>
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#284b63"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#427aa1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button BorderBrush="Transparent"
+                        Margin="5 5 5 5"
+                        Width="150"
+                        DockPanel.Dock="Left"
+                        Command="{Binding PromenaEkrana_Command}">
+                        <Button.BitmapEffect>
+                            <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                            </DropShadowBitmapEffect>
+                        </Button.BitmapEffect>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Image Source="/Resursi/Slike/PromenaEkrana_Belo.png"
+                               Width="40"
+                               Height="40"/>
+                            <TextBlock Text="Promena Ekrana"
+                                   Foreground="WhiteSmoke"
+                                           HorizontalAlignment="Center"
+                                   FontSize="16"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold">
+                            </TextBlock>
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#284b63"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#427aa1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button BorderBrush="Transparent"
+                        Margin="5 5 5 5"
+                        Width="150"
+                        DockPanel.Dock="Left"
+                        Command="{Binding PregledRezervacija_Command}">
+                        <Button.BitmapEffect>
+                            <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                            </DropShadowBitmapEffect>
+                        </Button.BitmapEffect>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Image Source="/Resursi/Slike/Pregled_Belo.png"
+                               Width="40"
+                               Height="40"/>
+                            <TextBlock Text="Pregled rezervacija"
+                                   Foreground="WhiteSmoke"
+                                           HorizontalAlignment="Center"
+                                   FontSize="16"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold">
+                            </TextBlock>
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#284b63"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#427aa1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button BorderBrush="Transparent"
+                        Margin="5 5 5 5"
+                        Width="150"
+                        DockPanel.Dock="Right"
+                        Command="{Binding Zatvori_Command}">
+                        <Button.BitmapEffect>
+                            <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+
+                            </DropShadowBitmapEffect>
+                        </Button.BitmapEffect>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="3"></Setter>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel>
+                            <Image Source="/Resursi/Slike/izlaz.png" Width ="40" Height="40" ></Image>
+                            <TextBlock Text="Izlaz"
+                                   Foreground="WhiteSmoke"
+                                           HorizontalAlignment="Center"
+                                   FontSize="16"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold">
+                            </TextBlock>
+                        </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#d11a2a"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#8b0000"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Border Width="250"
                         Visibility="Collapsed"
                         CornerRadius="3"
                         Margin="5 5 5 5"
                         Background="LightGray"
                         DockPanel.Dock="Left">
-                    <StackPanel VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" 
+                        <StackPanel VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" 
                                     Margin="20,0,0,0"
                                     HorizontalAlignment="Left">
-                            <TextBlock Text="VREME"
+                                <TextBlock Text="VREME"
                                        Width="60"
                                        FontFamily="16"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"></TextBlock>
-                            <Button Height="60" Width="70"
+                                <Button Height="60" Width="70"
                                     Margin="10,0,10,0"
                                     Click="PomeriPrikazLevo">
-                                <Button.BitmapEffect>
-                                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+                                    <Button.BitmapEffect>
+                                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
 
-                                    </DropShadowBitmapEffect>
-                                </Button.BitmapEffect>
-                                <Button.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3"></Setter>
-                                    </Style>
-                                </Button.Resources>
-                                <StackPanel>
-                                    <Image Source="/Resursi/Slike/Levo.png" Width ="25" Height="25" ></Image>
-                                </StackPanel>
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#284b63"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#427aa1"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Height="60" Width="70"
+                                        </DropShadowBitmapEffect>
+                                    </Button.BitmapEffect>
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="3"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resursi/Slike/Levo.png" Width ="25" Height="25" ></Image>
+                                    </StackPanel>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#284b63"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#427aa1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Height="60" Width="70"
                                     Margin="0,0,10,0"
                                     Click="PomeriPrikazDesno">
-                                <Button.BitmapEffect>
-                                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+                                    <Button.BitmapEffect>
+                                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
 
-                                    </DropShadowBitmapEffect>
-                                </Button.BitmapEffect>
-                                <Button.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3"></Setter>
-                                    </Style>
-                                </Button.Resources>
-                                <StackPanel>
-                                    <Image Source="/Resursi/Slike/Desno.png" Width ="25" Height="25" ></Image>
-                                </StackPanel>
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#284b63"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#427aa1"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" 
+                                        </DropShadowBitmapEffect>
+                                    </Button.BitmapEffect>
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="3"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resursi/Slike/Desno.png" Width ="25" Height="25" ></Image>
+                                    </StackPanel>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#284b63"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#427aa1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" 
                                     Margin="20,10,0,0"
                                     HorizontalAlignment="Left">
-                            <TextBlock Text="STOLOVI"
+                                <TextBlock Text="STOLOVI"
                                        Width="60"
                                        FontFamily="16"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"></TextBlock>
-                            <Button Height="60" Width="70"
+                                <Button Height="60" Width="70"
                                         Margin="10,0,10,0"
                                     Click="PomeriPrikazGore">
-                                <Button.BitmapEffect>
-                                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+                                    <Button.BitmapEffect>
+                                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
 
-                                    </DropShadowBitmapEffect>
-                                </Button.BitmapEffect>
-                                <Button.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3"></Setter>
-                                    </Style>
-                                </Button.Resources>
-                                <StackPanel>
-                                    <Image Source="/Resursi/Slike/Gore.png" Width ="25" Height="25" ></Image>
-                                </StackPanel>
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#284b63"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#427aa1"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                            <Button Height="60" Width="70"
+                                        </DropShadowBitmapEffect>
+                                    </Button.BitmapEffect>
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="3"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resursi/Slike/Gore.png" Width ="25" Height="25" ></Image>
+                                    </StackPanel>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#284b63"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#427aa1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Height="60" Width="70"
                                     Click="PomeriPrikazDole">
-                                <Button.BitmapEffect>
-                                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
+                                    <Button.BitmapEffect>
+                                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
 
-                                    </DropShadowBitmapEffect>
-                                </Button.BitmapEffect>
-                                <Button.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="3"></Setter>
-                                    </Style>
-                                </Button.Resources>
-                                <StackPanel>
-                                    <Image Source="/Resursi/Slike/Dole.png" Width ="25" Height="25" ></Image>
-                                </StackPanel>
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="#284b63"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#427aa1"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                                        </DropShadowBitmapEffect>
+                                    </Button.BitmapEffect>
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="3"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resursi/Slike/Dole.png" Width ="25" Height="25" ></Image>
+                                    </StackPanel>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#284b63"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#427aa1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Border>
-            </DockPanel>
+                    </Border>
+                </DockPanel>
+            </Border>
+
         </Grid>
     </Grid>
 </Window>

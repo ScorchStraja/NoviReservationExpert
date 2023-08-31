@@ -11,9 +11,10 @@
         WindowState="Maximized"    
         Title="Login" 
         WindowStartupLocation="CenterScreen" 
-        Width="900" Height="600" 
-        WindowStyle="None">
-
+        Width="900" Height="600">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding PrijavaEnter_Command}" Key="Enter"/>
+    </Window.InputBindings>
     <Grid x:Name="loginGrid"
           >
         <Grid.Background>

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Xceed.Wpf.AvalonDock.Themes;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
@@ -104,6 +106,20 @@ namespace NoviReservationExpert.ViewModel
             }
         }
 
+        DateTime _izabranDatum;
+        public DateTime izabranDatum
+        {
+            get
+            {
+                return _izabranDatum;
+            }
+            set
+            {
+                _izabranDatum = value;
+                NotifyPropertyChanged(nameof(izabranDatum));
+            }
+        }
+
         string _VremeOd;
         public string VremeOd
         {
@@ -114,6 +130,10 @@ namespace NoviReservationExpert.ViewModel
             set
             {
                 _VremeOd = value;
+                if (DateTime.TryParse(value, out vremeOd))
+                {
+                    PronadjiSlobodneStolove();
+                }
                 NotifyPropertyChanged(nameof(VremeOd));
             }
         }
@@ -128,24 +148,39 @@ namespace NoviReservationExpert.ViewModel
             set
             {
                 _VremeDo = value;
+                if (DateTime.TryParse(value, out vremeDo))
+                {
+                    PronadjiSlobodneStolove();
+                }
                 NotifyPropertyChanged(nameof(VremeDo));
             }
         }
 
-        string _Sto;
-        public string Sto 
+        ObservableCollection<re_Sto> _IzabraniStolovi;
+        public ObservableCollection<re_Sto> IzabraniStolovi
         {
             get
             {
-                return _Sto;
+                return _IzabraniStolovi;
             }
             set
             {
-                _Sto = value;
-                NotifyPropertyChanged(nameof(Sto));
+                _IzabraniStolovi = value;
+                NotifyPropertyChanged(nameof(IzabraniStolovi));
             }
         }
-
+        ObservableCollection<re_Sto> _SlobodniStolovi;
+        public ObservableCollection<re_Sto> SlobodniStolovi
+        {
+            get
+            {
+                return _SlobodniStolovi;
+            }
+            set
+            {
+                _SlobodniStolovi = value;
+            }
+        }
         string _BrojOdraslih;
         public string BrojOdraslih
         {
@@ -156,6 +191,7 @@ namespace NoviReservationExpert.ViewModel
             set
             {
                 _BrojOdraslih = value;
+                if (_BrojOdraslih != "") PronadjiSlobodneStolove();
                 NotifyPropertyChanged(nameof(BrojOdraslih));
             }
         }
@@ -185,107 +221,161 @@ namespace NoviReservationExpert.ViewModel
                 NotifyPropertyChanged(nameof(Napomena));
             }
         }
+        Visibility _vis_Kalendar;
+        public Visibility vis_Kalendar
+        {
+            get
+            {
+                return _vis_Kalendar;
+            }
+            set
+            {
+                _vis_Kalendar = value;
+                NotifyPropertyChanged(nameof(vis_Kalendar));
+            }
+        }
         #endregion
 
+        public class canvasSto : Border
+        {
+            public bool izabransto = false;
+            public bool slobodansto = true;
+            public re_Sto sto;
+
+            public canvasSto(re_Sto sto)
+            {
+                this.sto = sto;
+                this.CornerRadius = new System.Windows.CornerRadius(3);
+                if (sto.Oblik != 0)
+                {
+                    this.CornerRadius = new System.Windows.CornerRadius(100);
+                }
+                TextBlock tb = new TextBlock();
+                tb.Foreground = Brushes.White;
+                this.Background = Brushes.Black;
+                this.CornerRadius = new CornerRadius(3);
+                this.Child = tb;
+                tb.Text = sto.Sto;
+                tb.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+                tb.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                this.Opacity = 0.2;
+                this.Width = sto.Sirina / 12;
+                this.Height = sto.Visina / 12;
+            }
+        }
+        DateTime vremeDo;
+        DateTime vremeOd;
         Canvas canvasStolovi;
         ObservableCollection<re_Sto> sviStolovi = new ObservableCollection<re_Sto>();
         re_Sto prikazanSto = new re_Sto();
+        List<Border> brdstolovi = new List<Border>();
         public vm_DetaljiRezervacije(re_Rezervacija rezervacija, Canvas canvasStolovi)
         {
             Odustani_Command = new RelayCommand(Odustani_Metoda);
             PrimeniPromene_Command = new RelayCommand(PrimeniPromene_Metoda);
             PronadjiGosta_Command = new RelayCommand(PronadjiGosta_Metoda);
-
+            IzabraniStolovi = new ObservableCollection<re_Sto>();
             this.Rezervacija = rezervacija;
             this.canvasStolovi = canvasStolovi;
             this.prikazanSto = Broker.BrokerSelect.dajSesiju().VratiSto(rezervacija.Sema, rezervacija.Sto);
             this.sviStolovi = Broker.BrokerSelect.dajSesiju().vratiStolove(rezervacija.Sema);
 
+            vis_Kalendar = Visibility.Hidden;
+
+            string[] stolovi = rezervacija.Sto.Split(",");
+            foreach(string sto in stolovi)
+            {
+                re_Sto izabransto = sviStolovi.FirstOrDefault(x => x.Sto == sto);
+                IzabraniStolovi.Add(izabransto);
+            }
             Naslov = "Rezervacija - " + rezervacija.Id;
             Gost = rezervacija.ImeGosta + " " + rezervacija.PrezimeGosta;
             Telefon = rezervacija.BrojTelefona;
             Datum = rezervacija.Datum.ToString("dd.MM.yyyy");
             VremeOd = rezervacija.VremeOd.ToString("HH:mm");
             VremeDo = rezervacija.VremeDo.ToString("HH:mm");
-            Sto = rezervacija.Sto;
             BrojOdraslih = rezervacija.BrojOdraslih.ToString();
             BrojDece = rezervacija.BrojDece.ToString();
             Napomena = rezervacija.Napomena;
 
-            foreach(re_Sto sto in sviStolovi)
+            PronadjiSlobodneStolove();
+        }
+        private void PronadjiSlobodneStolove()
+        {
+            if (SlobodniStolovi != null) SlobodniStolovi.Clear();
+            if (canvasStolovi != null) canvasStolovi.Children.Clear();
+
+            DateTime vreme = DateTime.Now;
+            vremeOd = Rezervacija.VremeOd;
+            vremeDo = Rezervacija.VremeDo;
+            DateTime.TryParse(Datum, out vreme);
+            SlobodniStolovi = new ObservableCollection<re_Sto>(sviStolovi.Where(x => x.BrojOsoba >= Convert.ToInt32(BrojOdraslih)));
+
+            ObservableCollection<re_Rezervacija> poklapanja = Broker.BrokerSelect.dajSesiju().VratiRezervacijeKojeSePoklapajuSaVremenom(vremeOd, vremeDo, vreme.Date);
+
+            foreach (re_Rezervacija rezervacija in poklapanja)
             {
-                
-                Border brd = new Border();
-                brd.MouseLeftButtonDown += Brd_MouseLeftButtonDown;
-                brd.CornerRadius = new System.Windows.CornerRadius(3);
-                if(sto.Oblik != 0)
+                if (SlobodniStolovi.Contains(SlobodniStolovi.FirstOrDefault(x => x.Sto == rezervacija.Sto)))
+                    SlobodniStolovi.Remove(SlobodniStolovi.FirstOrDefault(x => x.Sto == rezervacija.Sto));
+            }
+
+
+            foreach (re_Sto sto in sviStolovi)
+            {
+                canvasSto brd = new canvasSto(sto);
+                brd.MouseDown += Brd_MouseLeftButtonDown;
+                if (SlobodniStolovi.Contains(sto))
                 {
-                    brd.CornerRadius = new System.Windows.CornerRadius(100);
+                    brd.Background = Brushes.Black;
                 }
-                TextBlock tb = new TextBlock();
-                tb.Foreground = Brushes.White;
-                brd.Child = tb;
-                tb.Text = sto.Sto;
-                tb.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-                tb.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                brd.Background = Brushes.Black;
-                if (prikazanSto.Sto != sto.Sto)
+                else
                 {
-                    brd.Opacity = 0.2;
-                } else
+                    brd.slobodansto = false;
+                    brd.Background = Brushes.Red;
+                }
+                if (IzabraniStolovi.Contains(sto))
                 {
+                    brd.izabransto = true;
                     brd.Opacity = 1;
                 }
-                brd.Width = sto.Sirina/ 13;
-                brd.Height = sto.Visina/ 13;
                 canvasStolovi.Children.Add(brd);
-                Canvas.SetLeft(brd, sto.PozicijaLeft/ 19 - 100);
-                Canvas.SetTop(brd, sto.PozicijaTop/ 19);
+                Canvas.SetLeft(brd, sto.PozicijaLeft / 19 - 100);
+                Canvas.SetTop(brd, sto.PozicijaTop / 19);
+                brdstolovi.Add(brd);
             }
         }
-
         private void Brd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Border brd = sender as Border;
-            if (brd != null)
+            canvasSto brd = sender as canvasSto;
+            if (brd.izabransto)
             {
-
-
-                TextBlock tb = brd.Child as TextBlock;
-                ;
-                DateTime vremeOd = DateTime.Now;
-                DateTime vremeDo = DateTime.Now;
-                DateTime datum = DateTime.Today;
-                DateTime.TryParse(Datum, out datum);
-                DateTime.TryParse(VremeOd, out vremeOd);
-                DateTime.TryParse(VremeDo, out vremeDo);
-                vremeOd = datum.Date + vremeOd.TimeOfDay;
-                vremeDo = datum.Date + vremeDo.TimeOfDay;
-                ObservableCollection<re_Rezervacija> poklapanja = Broker.BrokerSelect.dajSesiju().VratiRezervacijeKojeSePoklapajuSaVremenom_ZaSto(vremeOd, vremeDo, tb.Text);
-                bool poklapanje = false;
-                if(poklapanja.Any(x => x.Id == Rezervacija.Id))
+                brd.izabransto = false;
+                IzabraniStolovi.Remove(brd.sto);
+                brd.Opacity = 0.2;
+                TextBlock brdtb = brd.Child as TextBlock;              
+            }
+            else
+            {
+                if (!brd.slobodansto)
                 {
-                    poklapanja.Remove(poklapanja.First(x => x.Id == Rezervacija.Id));
-                }
-                if (poklapanja.Count > 0)
-                {
-                    poklapanje = true;
-                }
-                if (poklapanje)
-                {
-                    v_MessageBox prozor = new v_MessageBox("Za ovaj sto već postoji rezervacija u datom vremenu. Želite li da nastavite?");
+                    v_MessageBox prozor = new v_MessageBox("Ovaj sto ne ispunjava date kriterijume. Da li želite da nastavite?");
                     prozor.ShowDialog();
                     if (!Globalno.Varijable.sacuvanePromene)
                     {
                         return;
                     }
                 }
-                foreach (Border brdsto in canvasStolovi.Children)
+                brd.izabransto = true;
+                foreach (canvasSto canvasborder in canvasStolovi.Children.OfType<canvasSto>())
                 {
-                    brdsto.Opacity = 0.2;
+                    if (!canvasborder.izabransto && !IzabraniStolovi.Contains(canvasborder.sto))
+                    {
+                        canvasborder.Opacity = 0.2;
+                    }
                 }
                 brd.Opacity = 1;
-                Sto = tb.Text;
+                TextBlock brdtb = brd.Child as TextBlock;               
+                IzabraniStolovi.Add(sviStolovi.First(x => x.Sto == brdtb.Text));
             }
         }
         private void PronadjiGosta_Metoda(object obj)
@@ -319,10 +409,36 @@ namespace NoviReservationExpert.ViewModel
             Rezervacija.VremeOd = Rezervacija.Datum.Date + vreme.TimeOfDay;
             DateTime.TryParse(VremeDo, out vreme);
             Rezervacija.VremeDo = Rezervacija.Datum.Date + vreme.TimeOfDay;
-            Rezervacija.Sto = Sto;
             Rezervacija.BrojOdraslih = Convert.ToInt32(BrojOdraslih);
             Rezervacija.BrojDece = Convert.ToInt32(BrojDece);
             Rezervacija.Napomena = Napomena;
+            Rezervacija.BrojTelefona = Telefon;
+            string stolovi = "";
+            if (IzabraniStolovi.Count > 0)
+            {
+                foreach (re_Sto sto in IzabraniStolovi)
+                {
+                    stolovi += sto.Sto;
+                    stolovi += ",";
+                }
+                stolovi = stolovi.Remove(stolovi.Length - 1);
+            } else
+            {
+                v_MessageBox prozor = new v_MessageBox("Nije izabran nijedan sto!");
+                prozor.ShowDialog();
+                return;
+            }
+
+            Rezervacija.Sto = stolovi;
+            if(Globalno.Varijable.IzabranGost == null && !string.IsNullOrEmpty(Gost))
+            {
+                //if (string.IsNullOrEmpty(Telefon))
+                //{
+
+                //}
+                //bool postojanje = Broker.BrokerSelect.dajSesiju().ProveraPostojanjaGosta(Telefon);
+                Broker.BrokerInsert.dajSesiju().NapraviNovogGosta(Gost,Telefon);
+            }
             bool test = Broker.BrokerUpdate.dajSesiju().UpdateRezervaciju(Rezervacija);
             if (test)
             {

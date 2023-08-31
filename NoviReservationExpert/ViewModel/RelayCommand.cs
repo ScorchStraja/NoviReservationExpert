@@ -11,6 +11,8 @@ namespace NoviReservationExpert.ViewModel
     {
         Action<object> _TargetExecuteMethod;
         Func<bool> _TargetCanExecuteMethod;
+        private RelayCommand? prikaziZavrsene_Command;
+
         //public event EventHandler? CanExecuteChanged;
 
         public RelayCommand(Action<object> executeMethod)
@@ -22,6 +24,12 @@ namespace NoviReservationExpert.ViewModel
             _TargetExecuteMethod = executeMethod;
             _TargetCanExecuteMethod = canExecuteMethod;
         }
+
+        public RelayCommand(RelayCommand? prikaziZavrsene_Command)
+        {
+            this.prikaziZavrsene_Command = prikaziZavrsene_Command;
+        }
+
         public void RaiseCanExecuteChanged()
         {
             CanExecuteChanged(this, EventArgs.Empty);

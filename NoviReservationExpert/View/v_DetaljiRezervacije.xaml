@@ -88,6 +88,7 @@
                     <TextBlock Text="Datum:"
                                Width="70"></TextBlock>
                     <TextBox Margin="5,0,0,0"
+                             IsReadOnly="True"
                              Text="{Binding Datum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top"
@@ -103,14 +104,6 @@
                                Width="70"></TextBlock>
                     <TextBox Margin="5,0,0,0"
                              Text="{Binding VremeDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                </DockPanel>
-                <DockPanel DockPanel.Dock="Top"
-                                    Margin="5,10,5,0">
-                    <TextBlock Text="Sto:"
-                               Width="70"></TextBlock>
-                    <TextBox Margin="5,0,0,0"
-                             IsReadOnly="True"
-                             Text="{Binding Sto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top"
                                     Margin="5,10,5,0">
@@ -133,7 +126,7 @@
                                Width="70"></TextBlock>
                     <TextBox Margin="5,0,0,0"
                              TextWrapping="WrapWithOverflow"
-                             Height="120"
+                             Height="80"
                              DockPanel.Dock="Bottom"
                              Text="{Binding Napomena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </DockPanel>
@@ -224,6 +217,22 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <Border Background="#284b63"
+                        DockPanel.Dock="Top"
+                        Height="20"
+                        Margin="0,10,0,0"
+                        >
+                    <TextBlock Text="Izabrani stolovi"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"></TextBlock>
+                </Border>
+                <ListView DockPanel.Dock="Top"
+                          Foreground="#284b63"
+                          HorizontalContentAlignment="Center"
+                          FontSize="14"
+                          ItemsSource="{Binding IzabraniStolovi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ListView>
             </DockPanel>
         </Border>
         <Border Grid.Column="1"
@@ -234,5 +243,16 @@
         </Border>
         <Canvas Grid.Column="1"
                 x:Name="canvasStolovi"></Canvas>
+        <Calendar Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Grid.Row="0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  x:Name="Kalendar"
+                  Visibility="{Binding vis_Kalendar}"
+                  Margin="240,130,0,0"
+                  SelectedDate="{Binding izabranDatum}"
+                  SelectionMode="SingleDate"
+                  ></Calendar>
     </Grid>
 </Window>

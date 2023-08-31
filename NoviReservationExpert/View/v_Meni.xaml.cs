@@ -21,9 +21,27 @@ namespace NoviReservationExpert.View.UserKontrole
     public partial class v_Meni : Window
     {
         public Action ActionNovaRezervacija { get; set; }
-        public v_Meni(string vreme,string sto)
+        public Action ActionOtvoriDetaljeRezervacije { get; set; }
+        public Action ActionAktivirajRezervaciju { get; set; }
+        public Action ActionDeaktivirajRezervaciju { get; set; }
+        public v_Meni(string vreme, string sto, object kliknutiobjekat)
         {
             InitializeComponent();
+
+            if (kliknutiobjekat is uc_Rezervacija || kliknutiobjekat is uc_Notifikacija)
+            {
+                btnNovaRezervacija.Visibility = Visibility.Collapsed;
+                btnAktiviranje.Visibility = Visibility.Visible;
+                btnOtvoriDetaljeRezervacije.Visibility = Visibility.Visible;
+                btnDeaktiviranje.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnNovaRezervacija.Visibility = Visibility.Visible;
+                btnAktiviranje.Visibility = Visibility.Collapsed;
+                btnOtvoriDetaljeRezervacije.Visibility = Visibility.Collapsed;
+                btnDeaktiviranje.Visibility = Visibility.Collapsed;
+            }
 
             this.Vreme.Text = vreme;
             this.Sto.Text = "Sto " + sto;
@@ -32,6 +50,20 @@ namespace NoviReservationExpert.View.UserKontrole
         private void NovaRezervacija(object sender, RoutedEventArgs e)
         {
             this.ActionNovaRezervacija();
+        }
+
+        private void OtvoriDetaljiRezervacije(object sender, RoutedEventArgs e)
+        {
+            this.ActionOtvoriDetaljeRezervacije();
+        }
+
+        private void AktivirajRezervaciju(object sender, RoutedEventArgs e)
+        {
+            this.ActionAktivirajRezervaciju();
+        }
+        private void DeaktivirajRezervaciju(object sender, RoutedEventArgs e)
+        {
+            this.ActionDeaktivirajRezervaciju();
         }
 
         public void ZatvoriMeni()

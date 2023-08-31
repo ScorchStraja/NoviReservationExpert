@@ -23,7 +23,7 @@ namespace NoviReservationExpert.View.UserKontrole
     /// </summary>
     public partial class uc_Notifikacija : UserControl
     {
-        re_Rezervacija rezervacija;
+        public re_Rezervacija rezervacija;
         int _status; // -1 rezervacija je prosla, 0 rezervacija je u toku, 1 rezervacija tek dolazi
         SolidColorBrush animatedBrush = new SolidColorBrush();
         Storyboard myStoryboard = new Storyboard();
@@ -37,7 +37,7 @@ namespace NoviReservationExpert.View.UserKontrole
             set 
             { 
                 _status = value;
-                if(_status == -1)
+                if(_status == 1)
                 {
                     brdRoot.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#d11a2a");
                 }
@@ -52,7 +52,7 @@ namespace NoviReservationExpert.View.UserKontrole
                     animation.RepeatBehavior = RepeatBehavior.Forever;
                     this.brdRoot.Background.BeginAnimation(SolidColorBrush.ColorProperty, animation);
                 }
-                if (_status == 1)
+                if (_status == -1)
                 {
                     brdRoot.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
                 }
@@ -85,8 +85,6 @@ namespace NoviReservationExpert.View.UserKontrole
             }
         }
 
-
-
         public void Update()
         {
             rezervacija = Broker.BrokerSelect.dajSesiju().VratiRezervacijuPoId(rezervacija.Id);
@@ -94,16 +92,17 @@ namespace NoviReservationExpert.View.UserKontrole
             brDece.Text = rezervacija.BrojDece.ToString();
             tbNosiocRezervacije.Text = rezervacija.ImeGosta + " " + rezervacija.PrezimeGosta;
             tbVremeISto.Text = "Sto " + rezervacija.Sto + ", " + rezervacija.VremeOd.ToString("HH:mm") + " - " + rezervacija.VremeDo.ToString("HH:mm");
-            tbObjekat.Text = rezervacija.Sema;         
-            if (rezervacija.VremeOd > DateTime.Now)
+            tbObjekat.Text = rezervacija.Sema;
+            Status = 0;
+            if(rezervacija.Status != 1)
             {
-                Status = -1;
+                if (rezervacija.VremeOd < DateTime.Now && rezervacija.VremeOd.AddMinutes(Globalno.Varijable.MaksimalnoVremeKasnjenja) < DateTime.Now)
+                {
+                    Status = -1;
+                    Broker.BrokerUpdate.dajSesiju().UpdateRezervaciju(rezervacija.Id, -1);
+                }
             }
-            if (rezervacija.VremeOd < DateTime.Now && rezervacija.VremeDo > DateTime.Now)
-            {
-                Status = 0;
-            }
-            if (rezervacija.VremeDo < DateTime.Now)
+            if (rezervacija.VremeDo < DateTime.Now && rezervacija.Status == 1)
             {
                 Status = 1;
             }

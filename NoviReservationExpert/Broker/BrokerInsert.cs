@@ -59,5 +59,64 @@ namespace NoviReservationExpert.Broker
                 return false;
             }
         }
+
+        public bool NapraviNovogGosta(string gost, string telefon)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+                    string upit = "SELECT MAX(ID_GST) as id FROM KS_GOSTI";
+                    int maxid = -1;
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        SqlDataReader reader = komanda.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            maxid = Convert.ToInt32(reader["id"]);
+                        }
+                    }
+                    if (maxid < 0) return false;
+
+                    upit = "INSERT INTO KS_GOSTI (ID_GST, TEL, IME, PREZIME) " +
+                        "VALUES(@maxid, @tel, @ime,@prezime)";
+                    string ime = "";
+                    string prezime = "";
+                    if(gost.Contains(" "))
+                    {
+                        ime = gost.Substring(0, gost.IndexOf(" "));
+                        int duzina = gost.Length - ime.Length;
+                        prezime = gost.Substring(gost.IndexOf(" "), duzina);
+                    } else
+                    {
+                        ime = gost;
+                        prezime = "N.";
+                    }
+                    maxid = maxid + 1;
+
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        komanda.CommandText = upit;
+
+                        komanda.Parameters.AddWithValue("@maxid", maxid);
+                        komanda.Parameters.AddWithValue("@tel", telefon);
+                        komanda.Parameters.AddWithValue("@ime", ime);
+                        komanda.Parameters.AddWithValue("@prezime", prezime);
+
+                        int rezultat = komanda.ExecuteNonQuery();
+                        if (rezultat < 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

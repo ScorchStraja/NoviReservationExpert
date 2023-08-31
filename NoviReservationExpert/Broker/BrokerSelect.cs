@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace NoviReservationExpert.Broker
 {
@@ -261,8 +262,12 @@ namespace NoviReservationExpert.Broker
                 {
                     connection.Open();
 
-                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Dtm=@datum AND OBJ=@obj AND SEMA=@sema ORDER BY VREME_Od";
-
+                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Dtm=@datum AND OBJ=@obj AND SEMA=@sema ORDER BY STO ASC, VREME_OD DESC, ID DESC";
+                    if(datum == new DateTime())
+                    {
+                        upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE OBJ=@obj and SEMA=@sema ORDER BY VREME_OD ASC";
+                        datum = datum.AddYears(1800);
+                    }
                     using (SqlCommand komanda = new SqlCommand(upit, connection))
                     {
                         komanda.Parameters.AddWithValue("@datum", datum);
@@ -283,7 +288,7 @@ namespace NoviReservationExpert.Broker
                                 Grupa = reader["Grupa"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Grupa"]),
                                 Napomena = reader["Napomena"] == DBNull.Value ? "-" : reader["Napomena"].ToString() ?? "-",
                                 Kuhinja = reader["Kuhinja"] == DBNull.Value ? "-" : reader["Kuhinja"].ToString() ?? "-",
-                                IdGost = reader["Gost"] == DBNull.Value ? "0" : reader["Gost"].ToString() ?? "-",                                
+                                IdGost = reader["Gost"] == DBNull.Value ? "0" : reader["Gost"].ToString() ?? "-",
                                 Sto = reader["Sto"] == DBNull.Value ? "0" : reader["Sto"].ToString() ?? "-",
                                 Status = reader["Status"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Status"]),
                                 BrojOdraslih = reader["Br_Odraslih"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Br_Odraslih"]),
@@ -292,7 +297,7 @@ namespace NoviReservationExpert.Broker
                                 Obrisano = reader["Obrisano"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Obrisano"]),
                                 ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
                                 PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
-                                BrojTelefona = reader["TEL"] == DBNull.Value ? "-":reader["TEL"].ToString() ?? "-"
+                                BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
                             };
 
                             lista.Add(x);
@@ -306,7 +311,7 @@ namespace NoviReservationExpert.Broker
                 return new ObservableCollection<re_Rezervacija>();
             }
         }
-        public ObservableCollection<re_Rezervacija> VratiRezervacijeKojeSePoklapajuSaVremenom(DateTime vreme, DateTime vremeTrajanja)
+        public ObservableCollection<re_Rezervacija> VratiRezervacijeKojeSePoklapajuSaVremenom(DateTime vreme, DateTime vremeTrajanja, DateTime datum, int idrez=-1)
         {
             try
             {
@@ -316,13 +321,17 @@ namespace NoviReservationExpert.Broker
                 {
                     connection.Open();
 
-                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Vreme_Do > @vreme AND Vreme_Od < @vremetrajanja AND Dtm =@vremedtm";
-
+                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Vreme_Do > @vreme AND Vreme_Od < @vremetrajanja AND Dtm =@vremedtm and id != @id";
+                    if(idrez == -1)
+                    {
+                        upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE Vreme_Do > @vreme AND Vreme_Od < @vremetrajanja AND Dtm =@vremedtm";
+                    }
                     using (SqlCommand komanda = new SqlCommand(upit, connection))
                     {
                         komanda.Parameters.AddWithValue("@vreme", vreme);
                         komanda.Parameters.AddWithValue("@vremetrajanja", vremeTrajanja);
-                        komanda.Parameters.AddWithValue("@vremedtm", vreme.Date);
+                        komanda.Parameters.AddWithValue("@vremedtm", datum);
+                        komanda.Parameters.AddWithValue("@id", idrez);
 
                         SqlDataReader reader = komanda.ExecuteReader();
                         while (reader.Read())
@@ -348,6 +357,7 @@ namespace NoviReservationExpert.Broker
                                 ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
                                 PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
                                 BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
+
                             };
 
                             lista.Add(x);
@@ -361,7 +371,7 @@ namespace NoviReservationExpert.Broker
                 return new ObservableCollection<re_Rezervacija>();
             }
         }
-        public ObservableCollection<re_Rezervacija> VratiRezervacijeKojeSePoklapajuSaVremenom_ZaSto(DateTime vreme, DateTime vremetrajanja,string sto)
+        public ObservableCollection<re_Rezervacija> PostojiPoklapanje(DateTime vreme, DateTime vremetrajanja, int idrezervacije)
         {
             try
             {
@@ -371,14 +381,16 @@ namespace NoviReservationExpert.Broker
                 {
                     connection.Open();
 
-                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST WHERE (Vreme_Do > @vreme AND Vreme_Od < @vremetrajanja AND Dtm =@vremedtm OR ( Vreme_Od >@vreme AND Vreme_Do <@vremetrajanja)) and Sto=@sto";
+                    string upit = "SELECT * FROM REZERVACIJA INNER JOIN KS_GOSTI ON REZERVACIJA.Gost = KS_GOSTI.ID_GST " +
+                        "WHERE " +
+                        "(@vremeod >= Vreme_Od and @vremeod < Vreme_Do) " +
+                        "and Dtm=@datum and Id != @id ";
 
                     using (SqlCommand komanda = new SqlCommand(upit, connection))
                     {
-                        komanda.Parameters.AddWithValue("@vreme", vreme);
-                        komanda.Parameters.AddWithValue("@vremetrajanja", vremetrajanja);
-                        komanda.Parameters.AddWithValue("@vremedtm", vreme.Date);
-                        komanda.Parameters.AddWithValue("@sto", sto);
+                        komanda.Parameters.AddWithValue("@vremeod", vreme);
+                        komanda.Parameters.AddWithValue("@datum", vreme.Date);
+                        komanda.Parameters.AddWithValue("@id", idrezervacije);
 
                         SqlDataReader reader = komanda.ExecuteReader();
                         while (reader.Read())
@@ -404,8 +416,8 @@ namespace NoviReservationExpert.Broker
                                 ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
                                 PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
                                 BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
-                            };
 
+                            };
                             lista.Add(x);
                         }
                     }
@@ -456,6 +468,7 @@ namespace NoviReservationExpert.Broker
                                 ImeGosta = reader["Ime"] == DBNull.Value ? "N.N." : reader["Ime"].ToString() ?? "-",
                                 PrezimeGosta = reader["Prezime"] == DBNull.Value ? "N." : reader["Prezime"].ToString() ?? "-",
                                 BrojTelefona = reader["TEL"] == DBNull.Value ? "-" : reader["TEL"].ToString() ?? "-"
+
                             };
 
                         }
@@ -482,7 +495,7 @@ namespace NoviReservationExpert.Broker
 
                     using (SqlCommand komanda = new SqlCommand(upit, connection))
                     {
-                        komanda.Parameters.AddWithValue("@vreme", vreme);
+                        komanda.Parameters.AddWithValue("@vreme", vreme.AddMinutes(30));
                         komanda.Parameters.AddWithValue("@datum", izabranDatum.Date);
 
                         SqlDataReader reader = komanda.ExecuteReader();
@@ -562,6 +575,65 @@ namespace NoviReservationExpert.Broker
             catch (Exception ex)
             {
                 return new ObservableCollection<re_Gost>();
+            }
+        }
+        public bool ProveraPostojanjaGosta(string telefon)
+        {
+            try
+            {
+                ObservableCollection<re_Gost> lista = new ObservableCollection<re_Gost>();
+
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+
+                    string upit = "select * from KS_GOSTI WHERE TEL = @tel ORDER BY ID_GST ASC";
+
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        SqlDataReader reader = komanda.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return true;
+            }
+        }
+        public bool ZauzetostStola(re_Sto sto)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+
+                    string upit = "SELECT * FROM KS_BLK_ZG WHERE IND_KNJ = 0 AND STO=@sto and OBJ=@obj";
+
+
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        komanda.Parameters.AddWithValue("@sto", sto.Sto);
+                        komanda.Parameters.AddWithValue("@obj", Globalno.Varijable.Objekat.Objekat);
+
+                        SqlDataReader reader = komanda.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

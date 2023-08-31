@@ -27,6 +27,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0"
+                            x:Name="brdVreme"
                             BorderThickness="0,0,0.5,0"
                             Background="DimGray">
                         <TextBlock Text="14:30"
@@ -51,6 +52,7 @@
 
                 </Grid>
                 <Button Height="30" 
+                        x:Name="btnNovaRezervacija"
                     Click="NovaRezervacija"
                     DockPanel.Dock="Top">
                     <Button.Resources>
@@ -63,6 +65,126 @@
                            VerticalAlignment="Center"
                                Margin="5,0,0,0"></Image>
                         <TextBlock Text="Nova rezervacija"
+                               VerticalAlignment="Center"
+                               Foreground="Black"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnOtvoriDetaljeRezervacije"
+                    Click="OtvoriDetaljiRezervacije"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/Informacije_Crno.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Detalji rezervacije"
+                               VerticalAlignment="Center"
+                               Foreground="Black"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnAktiviranje"
+                    Click="AktivirajRezervaciju"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/Ceker_crno.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Aktiviraj rezervaciju"
+                               VerticalAlignment="Center"
+                               Foreground="Black"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnDeaktiviranje"
+                    Click="DeaktivirajRezervaciju"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/Exit_crno.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Deaktiviraj rezervaciju"
                                VerticalAlignment="Center"
                                Foreground="Black"
                                    Margin="15,0,0,0"

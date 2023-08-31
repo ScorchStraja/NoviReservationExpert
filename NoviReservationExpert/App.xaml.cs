@@ -27,6 +27,7 @@ namespace NoviReservationExpert
                 string str2 = _config.GetSection("PsConfig")["ImeServera"];
                 string str3 = _config.GetSection("PsConfig")["ImeBaze"];
 
+                Globalno.Varijable.MaksimalnoVremeKasnjenja = 30; // 30 minuta
 
                 Globalno.Varijable.RadniServer = str2; //vratiInfo("Server");
                 Globalno.Varijable.RadnaBaza = str3; //vratiInfo("Baza");

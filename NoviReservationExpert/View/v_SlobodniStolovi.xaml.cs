@@ -21,11 +21,11 @@ namespace NoviReservationExpert.View
     public partial class v_SlobodniStolovi : Window
     {
         vm_SlobodniStolovi vm;
-        public v_SlobodniStolovi(int brojgostiju, DateTime vreme, string gost)
+        public v_SlobodniStolovi()
         {
             InitializeComponent();
 
-            vm = new vm_SlobodniStolovi(brojgostiju, vreme, gost, dpSlobodniStolovi, canvasStolovi);
+            vm = new vm_SlobodniStolovi(dpSlobodniStolovi, canvasStolovi);
             this.DataContext = vm;
 
             if (vm.ZatvoriFormu == null)

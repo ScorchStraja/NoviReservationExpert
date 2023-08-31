@@ -33,5 +33,10 @@ namespace NoviReservationExpert.View
                 vm.ZatvoriFormu = new Action(this.Close);
 
         }
+
+        private void TextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

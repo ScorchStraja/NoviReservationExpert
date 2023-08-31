@@ -31,6 +31,7 @@ namespace NoviReservationExpert.Model
         int _reon;
         string _sto;
         int _status;
+        string _ststatus;
         int _brodraslih;
         int _brdece;
         int _korisnik;
@@ -203,7 +204,31 @@ namespace NoviReservationExpert.Model
             set
             {
                 _status = value;
+                if(_status == -1)
+                {
+                    StStatus = "Deaktivirana";
+                }
+                if (_status == 0)
+                {
+                    StStatus = "Neaktivirana";
+                }
+                if (_status == 1)
+                {
+                    StStatus = "Aktivirana";
+                }
                 NotifyPropertyChanged(nameof(Status));
+            }
+        }
+        public string StStatus
+        {
+            get
+            {
+                return _ststatus;
+            }
+            set
+            {
+                _ststatus = value; 
+                NotifyPropertyChanged(nameof(StStatus));
             }
         }
         public int BrojOdraslih
@@ -398,5 +423,6 @@ namespace NoviReservationExpert.Model
                 NotifyPropertyChanged(nameof(BrojTelefona));
             }
         }
+
     }
 }

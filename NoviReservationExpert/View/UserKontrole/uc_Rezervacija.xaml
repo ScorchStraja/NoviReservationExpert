@@ -7,96 +7,138 @@
              mc:Ignorable="d" 
              d:DesignHeight="60" >
     <Border Height="60"
+            x:Name="brdRoot"
             BorderThickness="1"
-            BorderBrush="CadetBlue"
-            CornerRadius="3"
-            Background="#284b63">
+            Background="#284b63"
+            BorderBrush="AliceBlue"
+            CornerRadius="3">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="120" MaxWidth="140"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid>
+            <Border Background="LightGray"
+                    Panel.ZIndex="9999999"
+                    Opacity="0"
+                    CornerRadius="3"
+                    x:Name="brdZamracenje"></Border>
+            <Border Height="20"
+                    Width="30"
+                    Panel.ZIndex="99999"
+                    CornerRadius="3,3,0,0"
+                    BorderThickness="1,1,1,0"
+                    x:Name="brdObelezivac"
+                    Visibility="Hidden"
+                    BorderBrush="AliceBlue"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="3,-20,0,0"
+                    
+                    Background="#284b63">
+                <Image Source="/Resursi/Slike/Rezervacija_Belo.png"></Image>
+            </Border>
+            <Grid Grid.Column="2"
+                  x:Name="rootGrid"
+                  >
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock x:Name="tbImeIPrezime"
-                           Foreground="White"
-                           Text="N.N."
-                           Grid.Row="0"
-                           Margin="5,0,0,0"></TextBlock>
-                    <TextBlock x:Name="tbSto"
-                           Foreground="White"
-                           Text="Sto - N"
-                           Grid.Row="1"
-                           Margin="5,0,0,0"></TextBlock>
-                    <TextBlock x:Name="tbVreme"
-                           Foreground="White"
-                           Text="00:00 - 00:00"
-                           Grid.Row="2"
-                           Margin="5,0,0,0"></TextBlock>
-                    <StackPanel Orientation="Horizontal"></StackPanel>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            BorderBrush="White"
-                            CornerRadius="3"
-                            BorderThickness="0.5"
-                            Margin="1">
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,0,0,0">
-                            <Image Source="/Resursi/Slike/Covek.png"
-                                   Width="13"
-                                   Height="13"></Image>
+                <UniformGrid Columns="1" Rows="2"
+                                 Grid.Column="0"
+                                 Margin="0,0,0,1">
+                    <Border Grid.Row="0"                           
+                                BorderBrush="White"                            
+                                CornerRadius="3"                            
+                                x:Name="brdBrojOsoba"                            
+                                BorderThickness="0.5"                            
+                                Margin="1">
+                        <StackPanel Orientation="Horizontal"                                   
+                                        Margin="0,0,2,0">
+                            <Image Source="/Resursi/Slike/Covek.png"                                  
+                                       Width="13"                               
+                                       Height="13"></Image>
                             <TextBlock Text="2"
                                        x:Name="tbBrojOdraslih"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       Foreground="White"></TextBlock>
+                                       Foreground="White"
+                                           Margin="0,0,0,0"></TextBlock>
                         </StackPanel>
                     </Border>
-                    <Border Grid.Row="1"
-                            BorderBrush="White"
-                            CornerRadius="3"
-                            BorderThickness="0.5"
-                            Margin="1">
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,0,0,0">
-                            <Image Source="/Resursi/Slike/Devojcica.png"
-                                   Width="13"
-                                   Height="13"></Image>
-                            <TextBlock Text="0"
-                                       x:Name="tbBrojDece"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"></TextBlock>
+                    <Border Grid.Row="1"                          
+                                BorderBrush="White"                            
+                                CornerRadius="3"                          
+                                BorderThickness="0.5"                            
+                                Margin="1">
+                        <StackPanel Orientation="Horizontal"                                   
+                                        Margin="0,0,2,0">
+                            <Image Source="/Resursi/Slike/Devojcica.png"                                   
+                                       Width="13"                           
+                                       Height="13"></Image>
+                            <TextBlock Text="0"                                       
+                                           x:Name="tbBrojDece"                                      
+                                           HorizontalAlignment="Center"                                      
+                                           VerticalAlignment="Center"                                 
+                                           Foreground="White"></TextBlock>
                         </StackPanel>
                     </Border>
+                </UniformGrid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="1"                        
+                                 Margin="2"                    
+                                 Background="White"                     
+                                 x:Name="tbNapomena"                     
+                                 LostFocus="tbNapomena_LostFocus"                     
+                                 TextWrapping="WrapWithOverflow"                     
+                                 Text="Napomena: -"                     
+                                 FontSize="12"                     
+                                 >
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal"
+                                    Grid.Row="0">
+                        <Border Grid.Row="0"                            
+                                    BorderBrush="White"                            
+                                    CornerRadius="3"                            
+                                    BorderThickness="0.5"                            
+                                    Margin="1,1,0,1">
+                            <TextBlock x:Name="tbImeIPrezime"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"                                       
+                                           Foreground="White"                                                                
+                                           Text="N.N."                                                                  
+                                           Grid.Row="0"                                                                  
+                                           Margin="2,0,2,0"></TextBlock>
+                        </Border>
+                        <Border Grid.Row="0"                            
+                                    BorderBrush="White"                            
+                                    CornerRadius="3"                           
+                                    BorderThickness="0.5"                            
+                                    Margin="1,1,0,1">
+                            <TextBlock x:Name="tbSto"                                                                  
+                                           Foreground="White"                                                  
+                                           Text="Sto - N"  
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Grid.Row="1"                                     
+                                           Margin="2,0,2,0"></TextBlock>
+                        </Border>
+                        <Border Grid.Row="0"                            
+                                    BorderBrush="White"                            
+                                    CornerRadius="3"                          
+                                    BorderThickness="0.5"                       
+                                    Margin="1,1,2,1">
+                            <TextBlock x:Name="tbVreme"                                    
+                                           Foreground="White"                           
+                                           Text="00:00 - 00:00"   
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Grid.Row="2"                                             
+                                           Margin="2,0,2,0"></TextBlock>
+                        </Border>
+                    </StackPanel>
                 </Grid>
             </Grid>
-            
-            <TextBox Grid.Column="1"
-                     Margin="2"
-                     Background="White"
-                     x:Name="tbNapomena"
-                     LostFocus="tbNapomena_LostFocus"
-                     TextWrapping="WrapWithOverflow"
-                     Text="Napomena: -"
-                     FontSize="12"
-                     >
-            </TextBox>
         </Grid>
     </Border>
 </UserControl>

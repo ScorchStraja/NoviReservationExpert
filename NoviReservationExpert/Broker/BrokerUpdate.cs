@@ -1,10 +1,12 @@
-﻿using NoviReservationExpert.Model;
+﻿using Microsoft.VisualBasic;
+using NoviReservationExpert.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xceed.Wpf.AvalonDock.Themes;
 
 namespace NoviReservationExpert.Broker
 {
@@ -66,7 +68,6 @@ namespace NoviReservationExpert.Broker
                 return false;
             }
         }
-
         public bool UpdateNapomenu(int id, string napomena)
         {
             try
@@ -82,6 +83,36 @@ namespace NoviReservationExpert.Broker
                         komanda.Parameters.AddWithValue("@id", id);
 
                         komanda.Parameters.AddWithValue("@napomena", napomena);
+
+                        int rezultat = komanda.ExecuteNonQuery();
+                        if (rezultat < 0)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdateRezervaciju(int idrezervacije,int status)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+                    string upit = "UPDATE [REZERVACIJA] SET " +
+                                  "Status=@status " +
+                                  "WHERE ID = @idrezervacije";
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+                        komanda.Parameters.AddWithValue("@idrezervacije", idrezervacije);
+                        komanda.Parameters.AddWithValue("@status", status);
 
                         int rezultat = komanda.ExecuteNonQuery();
                         if (rezultat < 0)

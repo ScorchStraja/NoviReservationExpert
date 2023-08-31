@@ -43,6 +43,7 @@ namespace NoviReservationExpert.ViewModel
         public RelayCommand TasterKlik_Command { get; private set; }
         public RelayCommand TastaturaObrisi_Command { get; private set; }
         public RelayCommand UnosSaTastature_Command { get; private set; }
+        public RelayCommand PrijavaEnter_Command { get; private set; }
         #endregion
 
         #region propertiji
@@ -272,6 +273,7 @@ namespace NoviReservationExpert.ViewModel
             TasterKlik_Command = new RelayCommand(TasterKlik_Metoda);
             TastaturaObrisi_Command = new RelayCommand(TastaturaObrisi_Metoda);
             UgasiTastaturu_Command = new RelayCommand(UgasiTastaturu_Metoda);
+            PrijavaEnter_Command = new RelayCommand(PrijavaEnter_Metoda);
 
             prikazPinTastatura = Visibility.Hidden;
             prikazTastatura = Visibility.Visible;
@@ -281,6 +283,10 @@ namespace NoviReservationExpert.ViewModel
             tasteriBrojevi.Visibility = Visibility.Hidden;
         }
 
+        private void PrijavaEnter_Metoda(object obj)
+        {
+            Prijava_Metoda(obj);
+        }
 
         private void UgasiTastaturu_Metoda(object obj)
         {
@@ -289,7 +295,6 @@ namespace NoviReservationExpert.ViewModel
             prikazPinTastatura = Visibility.Hidden;
             prikazTastatura = Visibility.Hidden;
         }
-
         private void PrikaziUserTastatura_Metoda(object obj)
         {
             pb.Password = "";
