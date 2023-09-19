@@ -30,59 +30,63 @@ namespace NoviReservationExpert.View
             }
         }
         public string ucrez_sto;
-        public Action OsveziRadniProstor { get; set; }
 
         public bool zamracen = false;
         public bool pomerenobelezicac = false;
+
+        // ------------------------------STATUSI----------------------------
+        // -1 -----------> OTKAZANA
+        // 0  -----------> REZERVISANA 
+        // 1  -----------> U TOKU
+        // 2  -----------> ZAVRSENA
         public uc_Rezervacija(re_Rezervacija rezervacija, string sto)
         {
             InitializeComponent();
+
+            if(rezervacija.Status == -1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Otkazano");
+            }
+            if(rezervacija.Status == 0)
+            {
+                brdStatus.Background = Brushes.Transparent;
+            }
+            if(rezervacija.Status == 1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("UToku");
+            }
+            if (rezervacija.Status == 2)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Zavrseno");
+            }
+
             ucrez_sto = sto; //ovo radi tako sto u radnom prostoru, rezervaciju koja ima vise stolova (1,2,3,4) podelima na 4 rezervacije u kojoj svaka ima svoj sto, kad radim updejt, vrsim REPLACE, gde umesto ucrez_sto pisem novi sto u stringu. Npr. rezervacija.sto = 1,2,3,4 , kad zavrsim pomeranje menjam 3 -> 5 
             this.rezervacija = rezervacija;
-            tbBrojOdraslih.Text = rezervacija.BrojOdraslih.ToString();
-            tbBrojDece.Text = rezervacija.BrojDece.ToString();
+            
+            PromeniBrojGostiju(rezervacija.BrojOdraslih.ToString());
+            PromeniBrojDece(rezervacija.BrojDece.ToString());
             PostaviSirinuUOdnosuNaTrajanje(rezervacija.VremeOd, rezervacija.VremeDo);
-            PromeniSto(sto);
-            PromeniVreme(rezervacija.VremeOd, rezervacija.VremeDo);
             PromeniNapomenu(rezervacija.Napomena);
-            PromeniImeGosta(rezervacija.ImeGosta + " " + rezervacija.PrezimeGosta);
+            PromeniImeGosta(rezervacija.ImeGosta,rezervacija.PrezimeGosta);
         }
 
-        public void ZamraciRezervaciju()
+        public void PromeniBrojGostiju(string v)
         {
-            //brdZamracenje.Opacity = 0.5;
-            //rootGrid.Opacity = 0.3;
-            brdRoot.Background = Brushes.DarkSalmon;
-            brdBrojOsoba.Background = Brushes.DarkSalmon;
-            brdObelezivac.Background = Brushes.DarkSalmon;
-            brdObelezivac.Visibility = Visibility.Visible;
-
-            Panel.SetZIndex(brdObelezivac, 99999);
-
-            zamracen = true;
+            tbBrojOdraslih.Text = v;
         }
-        public void OtkrijRezervaciju()
+        public void PromeniBrojDece(string v)
         {
-            //brdZamracenje.Opacity = 0;
-            //rootGrid.Opacity = 1;
-            brdRoot.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
-            brdBrojOsoba.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
-            brdObelezivac.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
-            if (!pomerenobelezicac)
-            {
-                brdObelezivac.Visibility = Visibility.Hidden;
-            }
-            Panel.SetZIndex(brdObelezivac, 99999);
-            zamracen = false;
+            tbBrojDece.Text = v;
         }
         public void PomeriObelezivac()
         {
             brdObelezivac.Margin = new Thickness(brdObelezivac.Margin.Left + 30, -20, 0, 0);
             pomerenobelezicac = true;
         }
-        private void PromeniImeGosta(string imeprezime)
+        private void PromeniImeGosta(string ime, string prezime)
         {
-            tbImeIPrezime.Text = imeprezime;
+            tbIme.Text = ime;
+            tbPrezime.Text = prezime;
         }
         public void PostaviSirinuUOdnosuNaTrajanje(DateTime vremeOd, DateTime vremeDo)
         {
@@ -93,39 +97,26 @@ namespace NoviReservationExpert.View
         }
         public void PromeniSto(string sto)
         {
-            tbSto.Text = "Sto - " + sto;
+            //tbSto.Text = "Sto - " + sto;
         }           
         public void PromeniVreme(DateTime vremeOd, DateTime vremeDo)
         {
-            tbVreme.Text = vremeOd.ToString("HH:mm") + " - " + vremeDo.ToString("HH:mm");
+            //tbVreme.Text = vremeOd.ToString("HH:mm") + " - " + vremeDo.ToString("HH:mm");
         }
         public void PromeniNapomenu(string napomena)
         {
             tbNapomena.Text = napomena;
-        }
-        private void tbNapomena_LostFocus(object sender, RoutedEventArgs e)
-        {
-            rezervacija.Napomena = tbNapomena.Text;
-            Broker.BrokerUpdate.dajSesiju().UpdateNapomenu(rezervacija.Id, tbNapomena.Text);
         }
         public void ProveraKapacitetaStola(re_Sto sto) 
         {
             if (sto == null) return;
             if(sto.BrojOsoba < rezervacija.BrojOdraslih)
             {
-                brdBrojOsoba.Background = Brushes.Red;
+                brdVisakLjudi.Visibility = Visibility.Visible;
             } else
             {
-                brdBrojOsoba.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
+                brdVisakLjudi.Visibility = Visibility.Hidden;
             }
-        }
-        private void PrikaziRezervaciju(object sender, MouseButtonEventArgs e)
-        {
-            OtkrijRezervaciju();
-        }
-        public void StaviRezervacijuUPozadinu()
-        {
-            brdZamracenje.Opacity = 0.7;
         }
         public void RezervacijaSePomera()
         {
@@ -135,5 +126,36 @@ namespace NoviReservationExpert.View
         {
             brdRoot.Opacity = 1;
         }
+        public void Preklapanje()
+        {
+            brdObelezivac.Visibility = Visibility.Visible;
+            brdObelezivac.Background = (Brush)Application.Current.FindResource("Preklapanje");
+            brdRoot.Background = (Brush)Application.Current.FindResource("Preklapanje");
+            zamracen = true;
+        }
+        public void OtkrijObelezivac()
+        {
+            brdObelezivac.Visibility = Visibility.Visible;
+        }
+        public void UpdateIzgledUOdnosuNaStatus()
+        {
+            if (rezervacija.Status == -1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Otkazano");
+            }
+            if (rezervacija.Status == 0)
+            {
+                brdStatus.Background = Brushes.Transparent;
+            }
+            if (rezervacija.Status == 1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("UToku");
+            }
+            if (rezervacija.Status == 2)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Zavrseno");
+            }
+        }
+
     }
 }

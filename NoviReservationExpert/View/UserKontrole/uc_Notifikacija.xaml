@@ -5,69 +5,83 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NoviReservationExpert.View.UserKontrole"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="250"
+             d:DesignHeight="70" d:DesignWidth="250"
              >
-    <Border CornerRadius="3"
+    <Border CornerRadius="0"
+            Height="65"
             Name="brdRoot"
-            Background="#284b63"
+            BorderBrush="{DynamicResource Plava}"
+            BorderThickness="0"
+            Background="{DynamicResource Plava}"
             Margin="0,0,0,5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="1"
+            <Border Width="20"
+                    Height="20"
+                    x:Name="brdVidjenaNotifikacija"
+                    Background="{DynamicResource Crvena}"
+                    CornerRadius="20"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,0" Grid.Column="1"/>
+            <DockPanel>
+                <Border x:Name="brdStatus" 
+                        Width="15"
+                        Background="Red">
+                </Border>
+                <Border Grid.Column="0"
                     Margin="2"
-                    BorderThickness="0.5"
-                    BorderBrush="White"
-                    CornerRadius="3">
-                <UniformGrid Columns="2"
-                             Rows="2">
-                    <Image Source="/Resursi/Slike/Covek.png"/>
-                    <TextBlock x:Name="brOdraslih" 
-                               HorizontalAlignment="Center" 
-                               Text="0"
-                               VerticalAlignment="Center"
-                               FontSize="16"
-                               Foreground="White"/>
-                    <Image Source="/Resursi/Slike/Devojcica.png"/>
-                    <TextBlock x:Name="brDece" 
-                               HorizontalAlignment="Center" 
-                               Text="0"
-                               VerticalAlignment="Center"
-                               FontSize="16"
-                               Foreground="White"/>
-                </UniformGrid>
-            </Border>
-            <Border Grid.Column="0"
-                    Margin="2"
-                    BorderBrush="White"
-                    BorderThickness="0.5"
-                    CornerRadius="3">
-                <UniformGrid Rows="3">
-                    <TextBlock x:Name="tbNosiocRezervacije" 
+                    BorderBrush="{DynamicResource Plava}"
+                    BorderThickness="0"
+                    CornerRadius="0">
+                    <UniformGrid Rows="2">
+                        <TextBlock x:Name="tbNosiocRezervacije" 
                                HorizontalAlignment="Left"
                                Margin="5,0,0,0"
                                Text="N.N."
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Foreground="White"/>
-                    <TextBlock x:Name="tbVremeISto" 
+                               Foreground="{DynamicResource Bela}"/>
+                        <TextBlock x:Name="tbVremeISto" 
                                HorizontalAlignment="Left"
                                Margin="5,0,0,0"
-                               Text="Sto - Vreme"
+                               Text="Sto "
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Foreground="White"/>
-                    <TextBlock x:Name="tbObjekat" 
-                               HorizontalAlignment="Left"
-                               Margin="5,0,0,0"
-                               Text="Sema"
+                               Foreground="{DynamicResource Bela}"/>
+                    </UniformGrid>
+                </Border>
+            </DockPanel>
+
+            <Border Grid.Column="1"
+                    Margin="2"
+                    BorderThickness="0"
+                    BorderBrush="{DynamicResource Plava}"
+                    CornerRadius="0">
+                <UniformGrid Columns="2"
+                             Rows="2">
+                    <Image Source="/Resursi/Slike/Covek.png"
+                           Height="20"/>
+                    <TextBlock x:Name="brOdraslih" 
+                               HorizontalAlignment="Center" 
+                               Text="0"
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Foreground="White"/>
+                               Foreground="{DynamicResource Bela}"/>
+                    <Image Source="/Resursi/Slike/Devojcica.png"
+                           Height="20"/>
+                    <TextBlock x:Name="brDece" 
+                               HorizontalAlignment="Center" 
+                               Text="0"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="{DynamicResource Bela}"/>
                 </UniformGrid>
             </Border>
+
         </Grid>
     </Border>
 </UserControl>

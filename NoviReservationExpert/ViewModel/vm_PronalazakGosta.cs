@@ -25,6 +25,7 @@ namespace NoviReservationExpert.ViewModel
         public RelayCommand Odustani_Command { get; set; }
         public RelayCommand Filter_Command { get; private set; }
         public RelayCommand IzaberiGosta_Command { get; private set; }
+        public RelayCommand IzbrisanFilter_Command { get; private set; }
         #endregion
 
         #region PROPERTIJI
@@ -69,11 +70,12 @@ namespace NoviReservationExpert.ViewModel
             }
         }
         #endregion
-        public vm_PronalazakGosta(string pretraga="-") 
+        public vm_PronalazakGosta(string pretraga="") 
         {
             Odustani_Command = new RelayCommand(Odustani_Metoda);
             Filter_Command = new RelayCommand(Filter_Metoda);
             IzaberiGosta_Command = new RelayCommand(IzaberiGosta_Metoda);
+            IzbrisanFilter_Command = new RelayCommand(IzbrisanFilter_Metoda);
 
             SQLListaGostiju = Broker.BrokerSelect.dajSesiju().VratiGoste();
             ListaGostiju = SQLListaGostiju;
@@ -84,6 +86,16 @@ namespace NoviReservationExpert.ViewModel
             if (pretraga != "-")
             {
                 Filter_Metoda(null);
+            }
+        }
+
+        private void IzbrisanFilter_Metoda(object obj)
+        {
+            if (filterText.Length == 0)
+            {
+                filterText = "";
+                SQLListaGostiju = Broker.BrokerSelect.dajSesiju().VratiGoste();
+                ListaGostiju = SQLListaGostiju;
             }
         }
 

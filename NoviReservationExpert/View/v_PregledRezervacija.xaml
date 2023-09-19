@@ -6,27 +6,229 @@
         xmlns:local="clr-namespace:NoviReservationExpert.View"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Pregled Rezervacija" Height="700" Width="1200">
-    <Grid>
+        Title="Pregled Rezervacija" Height="700" Width="1200"
+        KeyDown="Window_PreviewKeyDown"
+        >
+    <Grid Background="{DynamicResource Bela}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0"
                    x:Name="dpDugmici"
                    LastChildFill="False">
             <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
+                    Margin="5 5 5 0"
+                    x:Name="btnUToku"
+                    Width="150"
+                    Click="TrenutnoPrikazivanje"
+                    DockPanel.Dock="Left"
+                    Command="{Binding PrikaziUToku_Command}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <DockPanel LastChildFill="True"
+                           Width="150"
+                           Height="45">
+                    <Border Background="{DynamicResource UToku}"
+                            DockPanel.Dock="Left"
+                            BorderBrush="{DynamicResource Bela}"
+                            BorderThickness="0,0,1,0"
+                            Width="20"
+                            CornerRadius="3,0,0,3"></Border>
+                    <TextBlock Text="U toku"
+                               Margin="-15,0,0,0"
+                               Foreground="WhiteSmoke"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               FontWeight="Bold">
+                    </TextBlock>
+                </DockPanel>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button BorderBrush="Transparent"
+                        Margin="0 5 5 0"
+                    x:Name="btnRezervisane"
+                        Width="150"
+                    Click="TrenutnoPrikazivanje"
+                        DockPanel.Dock="Left"
+                        Command="{Binding PrikaziRezervisane_Command}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <DockPanel LastChildFill="True"
+                           Width="150"
+                           Height="45">
+                    <Border Background="{DynamicResource Rezervisano}"
+                            DockPanel.Dock="Left"
+                            BorderBrush="{DynamicResource Bela}"
+                            BorderThickness="0,0,1,0"
+                            Width="20"
+                            CornerRadius="3,0,0,3"></Border>
+                    <TextBlock Text="Rezervisano"
+                               Margin="-15,0,0,0"
+                               Foreground="WhiteSmoke"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               FontWeight="Bold">
+                    </TextBlock>
+                </DockPanel>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button BorderBrush="Transparent"
+                        Margin="0 5 5 0"
+                    x:Name="btnOtkazane"
+                        Width="150"
+                    Click="TrenutnoPrikazivanje"
+                        DockPanel.Dock="Left"
+                        Command="{Binding PrikaziOtkazane_Command}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <DockPanel LastChildFill="True"
+                           Width="150"
+                           Height="45">
+                    <Border Background="{DynamicResource Otkazano}"
+                            DockPanel.Dock="Left"
+                            BorderBrush="{DynamicResource Bela}"
+                            BorderThickness="0,0,1,0"
+                            Width="20"
+                            CornerRadius="3,0,0,3"></Border>
+                    <TextBlock Text="Otkazano"
+                               Margin="-15,0,0,0"
+                               Foreground="WhiteSmoke"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               FontWeight="Bold">
+                    </TextBlock>
+                </DockPanel>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button BorderBrush="Transparent"
+                        Margin="0 5 5 0"
+                        Width="150"
+                    x:Name="btnZavrsene"
+                    Click="TrenutnoPrikazivanje"
+                        DockPanel.Dock="Left"
+                        Command="{Binding PrikaziZavrsene_Command}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <DockPanel LastChildFill="True"
+                           Width="150"
+                           Height="45">
+                    <Border Background="{DynamicResource Zavrseno}"
+                            DockPanel.Dock="Left"
+                            BorderBrush="{DynamicResource Bela}"
+                            BorderThickness="0,0,1,0"
+                            Width="20"
+                            CornerRadius="3,0,0,3"></Border>
+                    <TextBlock Text="Završeno"
+                               Margin="-15,0,0,0"
+                               Foreground="WhiteSmoke"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               FontWeight="Bold">
+                    </TextBlock>
+                </DockPanel>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button BorderBrush="Transparent"
+                        Margin="0 5 5 0"
                         Width="150"
                     x:Name="btnSve"
                     Click="TrenutnoPrikazivanje"
                         DockPanel.Dock="Left"
                         Command="{Binding PrikaziSve_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
@@ -43,7 +245,7 @@
                 </StackPanel>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -55,40 +257,69 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </DockPanel>
+
+        <DockPanel LastChildFill="False"
+                   Grid.Row="2">
+            <Button BorderBrush="Transparent"
+                    Margin="5 0 5 5"
+                    Width="150"
+                    x:Name="btnKalendarOD"
+                    Foreground="White"
+                    HorizontalContentAlignment="Center"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Click="PrikaziSakrijKalendarOD"
+                    DockPanel.Dock="Left">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava_SV}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
             <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
+                        Margin="0 0 5 5"
                         Width="150"
-                    Click="TrenutnoPrikazivanje"
-                        DockPanel.Dock="Left"
-                        Command="{Binding PrikaziSamoOtkazane_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
+                    x:Name="btnKalendarDO"
+                    Foreground="White"
+                    HorizontalContentAlignment="Center"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Click="PrikaziSakrijKalendarDO"
+                        DockPanel.Dock="Left">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
                     </Style>
                 </Button.Resources>
-                <StackPanel>
-                    <TextBlock Text="Otkazane"
-                                   Foreground="WhiteSmoke"
-                                           HorizontalAlignment="Center"
-                                   FontSize="16"
-                                   TextWrapping="Wrap"
-                                   FontWeight="Bold">
-                    </TextBlock>
-                </StackPanel>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -100,114 +331,29 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
+                                <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava_SV}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
-                        Width="150"
-                    Click="TrenutnoPrikazivanje"
-                        DockPanel.Dock="Left"
-                        Command="{Binding PrikaziZavrsene_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="3"></Setter>
-                    </Style>
-                </Button.Resources>
-                <StackPanel>
-                    <TextBlock Text="Završene"
-                                   Foreground="WhiteSmoke"
-                                           HorizontalAlignment="Center"
-                                   FontSize="16"
-                                   TextWrapping="Wrap"
-                                   FontWeight="Bold">
-                    </TextBlock>
-                </StackPanel>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
-                        Width="150"
-                    Click="TrenutnoPrikazivanje"
-                        DockPanel.Dock="Left"
-                        Command="{Binding PrikaziTrenutneRezervacija_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="3"></Setter>
-                    </Style>
-                </Button.Resources>
-                <StackPanel>
-                    <TextBlock Text="Trenutne"
-                                   Foreground="WhiteSmoke"
-                                           HorizontalAlignment="Center"
-                                   FontSize="16"
-                                   TextWrapping="Wrap"
-                                   FontWeight="Bold">
-                    </TextBlock>
-                </StackPanel>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-
+            <TextBox DockPanel.Dock="Left"
+                     Width="300"
+                     Margin="5"
+                     x:Name="tbPretraga"
+                     
+                     TextChanged="ResetPretragu"
+                     Text="{Binding Pretraga, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"
+                     Padding="2,0,0,0"
+                     Height="30"></TextBox>
             <Button BorderBrush="Transparent"
                         Margin="5 5 5 5"
                         Width="50"
+                    IsDefault="True"
                     Height="30"
-                        DockPanel.Dock="Right"
+                        DockPanel.Dock="Left"
                         Command="{Binding Pretraga_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
@@ -218,7 +364,7 @@
                 </StackPanel>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -230,42 +376,27 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <TextBox DockPanel.Dock="Right"
-                     Width="150"
-                     Text="{Binding Pretraga}"
-                     VerticalContentAlignment="Center"
-                     Padding="2,0,0,0"
-                     Height="30"></TextBox>
             <Button BorderBrush="Transparent"
-                        Margin="5 5 5 5"
-                        Width="150"
-                    x:Name="btnKalendar"
-                    Foreground="White"
-                    HorizontalContentAlignment="Center"
-                    FontSize="16"
-                    FontWeight="Bold"
+                    Margin="5 5 5 5"
+                    Width="30"
                     Height="30"
-                    Click="PrikaziSakrijKalendar"
-                        DockPanel.Dock="Right">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
+                    DockPanel.Dock="Left"
+                    Command="{Binding UkloniPretraga_Command}">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
                     </Style>
                 </Button.Resources>
+                <Image Source="/Resursi/Slike/Exit_belo.png"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -277,14 +408,48 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#427aa1"/>
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
+            <Button BorderBrush="Transparent"
+                        Margin="5 0 5 5"
+                        Width="50"
+                        DockPanel.Dock="Right"
+                        Command="{Binding Detalji_Command}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"></Setter>
+                    </Style>
+                </Button.Resources>
+                <StackPanel>
+                    <TextBlock Text="..."
+                               Foreground="{DynamicResource Bela}"></TextBlock>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Plava_SV}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            
         </DockPanel>
-
         <Border Grid.Row="1"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -316,33 +481,50 @@
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" 
                                         Color="Black"/>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="{DynamicResource Plava}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Bela}"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource Bela}"/>
                         <Setter Property="BorderThickness" Value="0.5,0,0.5,0"/>
                         <Setter Property="Height" Value="40"/>
                     </Style>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Height" Value="40"/>
                     </Style>
-                    <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                    <Grid Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                    
                 </DataGrid.Resources>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Width="1*" Header="Status" Binding="{Binding StStatus}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0,11,0,0"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="Otkazana">
+                                        <Setter Property="Background" Value="{DynamicResource Otkazano}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Bela}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="Rezervisana">
+                                        <Setter Property="Background" Value="{DynamicResource Rezervisano}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Bela}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="U toku">
+                                        <Setter Property="Background" Value="{DynamicResource UToku}"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="Završena">
+                                        <Setter Property="Background" Value="{DynamicResource Zavrseno}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Width="1*" Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yy'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
@@ -350,6 +532,7 @@
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
@@ -357,32 +540,79 @@
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Width="2*" Header="Ime gosta" Binding="{Binding ImeGosta}"></DataGridTextColumn>
-                    <DataGridTextColumn Width="2*" Header="Prezime gosta" Binding="{Binding PrezimeGosta}"></DataGridTextColumn>
-                    <DataGridTextColumn Width="2*" Header="Broj telefon" Binding="{Binding BrojTelefona}"></DataGridTextColumn>
-                    <DataGridTextColumn Width="1*" Header="Status" Binding="{Binding StStatus}">
+                    <DataGridTextColumn Width="1.5*" Header="Sto" Binding="{Binding Sto}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Width="2*" Header="Napomena" Binding="{Binding Napomena}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="2*" Header="Ime gosta" Binding="{Binding ImeGosta}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="2*" Header="Prezime gosta" Binding="{Binding PrezimeGosta}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="2*" Header="Broj telefon" Binding="{Binding BrojTelefona}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="2*" Header="Napomena" Binding="{Binding Napomena}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-        <Calendar Grid.RowSpan="2"
+        <Viewbox  Grid.RowSpan="2"
                   Grid.Row="0"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Top"
-                  x:Name="Kalendar"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom"
+                  Height="250">
+            <Calendar 
+                  x:Name="KalendarOD"
                   Visibility="Hidden"
-                  Margin="0,38,200,0"
-                  SelectedDate="{Binding izabranDatum}"
+                  Margin="0,0,0,0"
+                  SelectedDate="{Binding izabranDatumOD}"
                   SelectionMode="SingleDate"
-                  SelectedDatesChanged="Calendar_SelectedDatesChanged"></Calendar>
+                  SelectedDatesChanged="CalendarOD_SelectedDatesChanged"></Calendar>
+        </Viewbox>
+
+        <Viewbox Grid.RowSpan="2"
+                  Grid.Row="0"
+                  Height="250"
+                  Margin="100,0,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom">
+            <Calendar 
+                  x:Name="KalendarDO"
+                  Visibility="Hidden"
+                  SelectedDate="{Binding izabranDatumDO}"
+                  SelectionMode="SingleDate"
+                  SelectedDatesChanged="CalendarDO_SelectedDatesChanged"></Calendar>
+        </Viewbox>
+       
     </Grid>
 </Window>

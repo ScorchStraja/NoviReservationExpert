@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="NoviReservationExpert.View.UserKontrole.uc_PrikazSto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NoviReservationExpert.View.UserKontrole"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="100">
+    <Border BorderBrush="{DynamicResource Siva}"
+            Background="Transparent"
+            Name="brdRoot"
+            BorderThickness="0,1,2,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Name="brdIzabranSto"
+                    Grid.ColumnSpan="2"
+                    Visibility="Hidden"
+                    Grid.RowSpan="2"
+                    Background="{DynamicResource Plava_SV}"
+                    ></Border>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center">
+                <Image Source="/Resursi/Slike/Sto_Sivo.png"
+                       x:Name="imgSto"
+                       Height="25"
+                       Margin="0,0,4,0"></Image>
+                <TextBlock x:Name="tbImeStola"
+                       FontSize="14"
+                           FontWeight="Bold"
+                       Text="Brzi sto 12"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource Siva}"></TextBlock>
+            </StackPanel>
+
+            <Border Grid.Row="1"
+                    BorderBrush="{DynamicResource Siva}"
+                    BorderThickness="0,0.5,0.5,0"
+                    Opacity="0.7">
+                <Image Source="/Resursi/Slike/Covek_Sivo.png"
+                       x:Name="imgCovek"
+                       Height="20"
+                       Width="20"/>
+            </Border>
+            <Border Grid.Row="1"
+                    x:Name="brdBrojLjudi"
+                    Grid.Column="1"
+                    Opacity="0.7"
+                    BorderBrush="{DynamicResource Siva}"
+                    BorderThickness="0,0.5,0,0">
+                <TextBlock Text="5"
+                           Foreground="{DynamicResource Siva}"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           x:Name="tbBrojLjudi"></TextBlock>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

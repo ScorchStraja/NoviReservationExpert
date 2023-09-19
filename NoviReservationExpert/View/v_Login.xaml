@@ -11,18 +11,14 @@
         WindowState="Maximized"    
         Title="Login" 
         WindowStartupLocation="CenterScreen" 
-        Width="900" Height="600">
+        Width="1600" Height="1000">
     <Window.InputBindings>
         <KeyBinding Command="{Binding PrijavaEnter_Command}" Key="Enter"/>
     </Window.InputBindings>
     <Grid x:Name="loginGrid"
+          Background="{DynamicResource Bela}"
           >
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resursi/Slike/pocetnaslika2.jpg" Opacity="0.6"></ImageBrush>
-
-        </Grid.Background>
-
-        <Grid>
+        <Grid Panel.ZIndex="999999">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -32,7 +28,7 @@
               Width="200"
               HorizontalAlignment="Right"
               Margin="0">
-                <Grid Background="Black" Opacity="0.6">
+                <Grid Background="{DynamicResource Plava}" Opacity="1">
 
                 </Grid>
                 <StackPanel VerticalAlignment="Top">
@@ -62,7 +58,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" 
                                     Width="{Binding ActualWidth, ElementName=btnPin}">
-                                <Image Source="/Resursi/Slike/objekti.png" 
+                                <Image Source="/Resursi/Slike/Objekat_Belo.png" 
                                    Height="50" 
                                    Width="50" 
                                    VerticalAlignment="Center"
@@ -115,11 +111,11 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" 
                                     Width="{Binding ActualWidth, ElementName=btnPin}">
-                                <Image Source="/Resursi/Slike/calculatorBeli.png" 
-                                   Height="50" 
-                                   Width="50" 
-                                   VerticalAlignment="Center"
-                                   Margin="0,0,10,0">
+                                <Image Source="/Resursi/Slike/Pin_Belo.png" 
+                                       Height="50" 
+                                       Width="50" 
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0">
                                 </Image>
                                 <TextBlock Text="PIN LOGIN"
                                        TextWrapping="Wrap"
@@ -146,7 +142,7 @@
                                     HorizontalAlignment="Left"
                                     Width="{Binding ActualWidth, ElementName=btnUser}">
                                 <Grid HorizontalAlignment="Left">
-                                    <Image Source="/Resursi/Slike/userlogin.png" 
+                                    <Image Source="/Resursi/Slike/User_Belo.png" 
                                    Height="50" 
                                    Width="50" 
                                    Margin="0,0,10,0"
@@ -177,11 +173,14 @@
                     Command="{Binding Zatvori_Command}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Resursi/Slike/exit8.png" 
+                                <Image Source="/Resursi/Slike/Exit_Belo2.png" 
                                Width="50" 
                                Height="50"
                                Margin="0,0,10,0"
                                VerticalAlignment="Center">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="180" CenterX="25" CenterY="25"></RotateTransform>
+                                    </Image.RenderTransform>
                                 </Image>
                                 <TextBlock Text="IZLAZ"
                                            TextWrapping="Wrap"
@@ -205,7 +204,7 @@
                 </Grid.BitmapEffect>
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Panel.ZIndex="999999">
                 <!--TASTATURE-->
                 <Border 
                     x:Name="brdTastatura"
@@ -213,7 +212,7 @@
                     Height="400"
                     Visibility="{Binding prikazTastatura}"
                     CornerRadius="5"
-                    Background="Black">
+                    Background="{DynamicResource Plava}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -251,7 +250,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -270,7 +269,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -289,7 +288,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -308,7 +307,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -327,7 +326,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -346,7 +345,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -365,7 +364,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -384,7 +383,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -403,7 +402,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -422,7 +421,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -441,7 +440,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -460,7 +459,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -479,7 +478,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -498,7 +497,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -517,7 +516,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -536,7 +535,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -555,7 +554,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -574,7 +573,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -593,7 +592,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -612,7 +611,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -631,7 +630,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -645,7 +644,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -664,7 +663,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -683,7 +682,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -702,7 +701,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -721,7 +720,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -740,7 +739,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -759,7 +758,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -778,7 +777,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -797,7 +796,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -812,7 +811,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -832,7 +831,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -851,7 +850,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -870,7 +869,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -889,7 +888,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -908,7 +907,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -950,7 +949,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -969,7 +968,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -988,7 +987,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1007,7 +1006,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1026,7 +1025,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1045,7 +1044,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1064,7 +1063,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1083,7 +1082,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1102,7 +1101,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1121,7 +1120,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1140,7 +1139,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1159,7 +1158,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1178,7 +1177,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1197,7 +1196,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1216,7 +1215,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1235,7 +1234,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1254,7 +1253,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1273,7 +1272,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1292,7 +1291,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1311,7 +1310,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1330,7 +1329,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1344,7 +1343,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1363,7 +1362,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1382,7 +1381,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1401,7 +1400,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1420,7 +1419,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1439,7 +1438,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1458,7 +1457,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1477,7 +1476,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1496,7 +1495,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -1511,7 +1510,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1531,7 +1530,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1550,7 +1549,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1569,7 +1568,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1588,7 +1587,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1607,7 +1606,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -1648,7 +1647,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1667,7 +1666,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1686,7 +1685,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1705,7 +1704,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1724,7 +1723,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1743,7 +1742,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1762,7 +1761,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1781,7 +1780,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1800,7 +1799,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1819,7 +1818,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -1838,7 +1837,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1857,7 +1856,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1876,7 +1875,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1895,7 +1894,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1914,7 +1913,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1933,7 +1932,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1952,7 +1951,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1971,7 +1970,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -1990,7 +1989,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -2009,7 +2008,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -2028,7 +2027,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2042,7 +2041,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2061,7 +2060,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2080,7 +2079,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2099,7 +2098,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2118,7 +2117,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2137,7 +2136,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2156,7 +2155,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2175,7 +2174,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2194,7 +2193,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2209,7 +2208,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2229,7 +2228,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2248,7 +2247,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2267,7 +2266,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2286,7 +2285,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2305,7 +2304,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2330,7 +2329,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="10 5 5 10">
                                 <Image Source="/Resursi/Slike/izlazbeli.png" Margin="7">
@@ -2342,7 +2341,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5 5 10 10"
                                 Grid.Column="1">
@@ -2365,7 +2364,7 @@
                     Height="450"
                     Visibility="{Binding prikazPinTastatura}"
                     CornerRadius="5"
-                    Background="Black">
+                    Background="{DynamicResource Plava}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -2395,7 +2394,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -2414,7 +2413,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -2433,7 +2432,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="0"
@@ -2452,7 +2451,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -2471,7 +2470,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -2490,7 +2489,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="1"
@@ -2509,7 +2508,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2528,7 +2527,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2547,7 +2546,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="2"
@@ -2566,7 +2565,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2586,7 +2585,7 @@
                                 </i:Interaction.Triggers>
                             </Border>
 
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5"
                                 Grid.Row="3"
@@ -2608,7 +2607,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="10 5 5 10">
                                 <Image Source="/Resursi/Slike/izlazbeli.png" Margin="7">
@@ -2620,7 +2619,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Border>
-                            <Border Background="#41424c"
+                            <Border Background="{DynamicResource Plava_SV}"
                                 CornerRadius="3"
                                 Margin="5 5 10 10"
                                 Grid.Column="1">

@@ -15,6 +15,8 @@ namespace Globalno
         private static string radniServer;
         private static string radnaBaza;
 
+        private static re_Rezervacija _poslednjaNovaRezervacija;
+        public static re_Rezervacija PoslednjaNovaRezervacija { get => _poslednjaNovaRezervacija; set => _poslednjaNovaRezervacija = value; }
         public static string RadniServer { get => radniServer; set => radniServer = value; }
         public static string RadnaBaza { get => radnaBaza; set => radnaBaza = value; }
 
@@ -45,7 +47,14 @@ namespace Globalno
         private static bool _sacuvanePromene;
         public static bool sacuvanePromene { get => _sacuvanePromene; set => _sacuvanePromene = value;}
 
-        private static int _maksimalnoVremeKasnjenja; //u minutima
-        public static int MaksimalnoVremeKasnjenja { get => _maksimalnoVremeKasnjenja; set => _maksimalnoVremeKasnjenja = value;}
+
+        //------------------------KONFIGURACIJA
+        private static bool _prikazujOtkazane;
+        public static bool PrikazujOtkazane { get => _prikazujOtkazane; set => _prikazujOtkazane = value;}
+
+        private static bool _automatskoMenjanjeStatusa;
+        public static bool AutomatskoMenjanjeStatusa { get => _automatskoMenjanjeStatusa; set => _automatskoMenjanjeStatusa = value;}
+
+
     }
 }

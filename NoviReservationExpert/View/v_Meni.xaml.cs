@@ -24,23 +24,42 @@ namespace NoviReservationExpert.View.UserKontrole
         public Action ActionOtvoriDetaljeRezervacije { get; set; }
         public Action ActionAktivirajRezervaciju { get; set; }
         public Action ActionDeaktivirajRezervaciju { get; set; }
+        public Action ActionZavrsiRezervaciju { get; set; }
+        public Action ActionSkloniNotifikaciju { get; set; } 
+        public Action ActionVratiURezervisano { get; set; }
         public v_Meni(string vreme, string sto, object kliknutiobjekat)
         {
             InitializeComponent();
 
-            if (kliknutiobjekat is uc_Rezervacija || kliknutiobjekat is uc_Notifikacija)
+            if (kliknutiobjekat is uc_Rezervacija )
             {
                 btnNovaRezervacija.Visibility = Visibility.Collapsed;
                 btnAktiviranje.Visibility = Visibility.Visible;
                 btnOtvoriDetaljeRezervacije.Visibility = Visibility.Visible;
                 btnDeaktiviranje.Visibility = Visibility.Visible;
+                btnVratiRezervaciju.Visibility = Visibility.Visible;
+                btnZavrsi.Visibility = Visibility.Visible;
+                btnSkloniNotifikaciju.Visibility = Visibility.Collapsed;
+            } 
+            else if(kliknutiobjekat is uc_Notifikacija)
+            {
+                btnNovaRezervacija.Visibility = Visibility.Collapsed;
+                btnAktiviranje.Visibility = Visibility.Collapsed;
+                btnOtvoriDetaljeRezervacije.Visibility = Visibility.Visible;
+                btnVratiRezervaciju.Visibility = Visibility.Collapsed;
+                btnDeaktiviranje.Visibility = Visibility.Collapsed;
+                btnZavrsi.Visibility = Visibility.Collapsed;
+                btnSkloniNotifikaciju.Visibility = Visibility.Visible;
             }
             else
             {
                 btnNovaRezervacija.Visibility = Visibility.Visible;
+                btnVratiRezervaciju.Visibility = Visibility.Collapsed;
                 btnAktiviranje.Visibility = Visibility.Collapsed;
                 btnOtvoriDetaljeRezervacije.Visibility = Visibility.Collapsed;
                 btnDeaktiviranje.Visibility = Visibility.Collapsed;
+                btnZavrsi.Visibility = Visibility.Collapsed;
+                btnSkloniNotifikaciju.Visibility = Visibility.Collapsed;
             }
 
             this.Vreme.Text = vreme;
@@ -65,10 +84,22 @@ namespace NoviReservationExpert.View.UserKontrole
         {
             this.ActionDeaktivirajRezervaciju();
         }
-
+        private void SkloniNotifikaciju(object sender, RoutedEventArgs e)
+        {
+            this.ActionSkloniNotifikaciju();
+        }
+        private void VratiRezervaciju(object sender, RoutedEventArgs e)
+        {
+            this.ActionVratiURezervisano();
+        }
         public void ZatvoriMeni()
         {
             this.Close();
+        }
+
+        private void btnZavrsi_Click(object sender, RoutedEventArgs e)
+        {
+            this.ActionZavrsiRezervaciju();
         }
     }
 }

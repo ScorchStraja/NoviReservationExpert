@@ -97,7 +97,6 @@ namespace NoviReservationExpert.Model
                 NotifyPropertyChanged(nameof(VremeDo));
             }
         }
-
         public int Objekat
         {
             get
@@ -110,7 +109,6 @@ namespace NoviReservationExpert.Model
                 NotifyPropertyChanged(nameof(Objekat));
             }
         }
-
         public string Sema
         {
             get
@@ -206,15 +204,19 @@ namespace NoviReservationExpert.Model
                 _status = value;
                 if(_status == -1)
                 {
-                    StStatus = "Deaktivirana";
+                    StStatus = "Otkazana";
                 }
                 if (_status == 0)
                 {
-                    StStatus = "Neaktivirana";
+                    StStatus = "Rezervisana";
                 }
                 if (_status == 1)
                 {
-                    StStatus = "Aktivirana";
+                    StStatus = "U toku";
+                }
+                if (_status == 2)
+                {
+                    StStatus = "Završena";
                 }
                 NotifyPropertyChanged(nameof(Status));
             }

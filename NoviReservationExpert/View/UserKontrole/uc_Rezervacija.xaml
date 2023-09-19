@@ -9,15 +9,13 @@
     <Border Height="60"
             x:Name="brdRoot"
             BorderThickness="1"
-            Background="#284b63"
-            BorderBrush="AliceBlue"
+            Background="{DynamicResource ResourceKey=Plava}"
+            BorderBrush="{DynamicResource ResourceKey=Bela}"
             CornerRadius="3">
-        <Grid>
-            <Border Background="LightGray"
-                    Panel.ZIndex="9999999"
-                    Opacity="0"
-                    CornerRadius="3"
-                    x:Name="brdZamracenje"></Border>
+        <Grid >
+            <Border x:Name="brdStatus"
+                    Background="Transparent"
+                    CornerRadius="3"></Border>
             <Border Height="20"
                     Width="30"
                     Panel.ZIndex="99999"
@@ -28,116 +26,80 @@
                     BorderBrush="AliceBlue"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="3,-20,0,0"
-                    
-                    Background="#284b63">
+                    Margin="3,-20,0,0"         
+                    Background="{DynamicResource ResourceKey=Plava}">
                 <Image Source="/Resursi/Slike/Rezervacija_Belo.png"></Image>
             </Border>
-            <Grid Grid.Column="2"
-                  x:Name="rootGrid"
-                  >
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="26"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <UniformGrid Columns="1" Rows="2"
-                                 Grid.Column="0"
-                                 Margin="0,0,0,1">
-                    <Border Grid.Row="0"                           
-                                BorderBrush="White"                            
-                                CornerRadius="3"                            
-                                x:Name="brdBrojOsoba"                            
-                                BorderThickness="0.5"                            
-                                Margin="1">
-                        <StackPanel Orientation="Horizontal"                                   
-                                        Margin="0,0,2,0">
-                            <Image Source="/Resursi/Slike/Covek.png"                                  
-                                       Width="13"                               
-                                       Height="13"></Image>
-                            <TextBlock Text="2"
-                                       x:Name="tbBrojOdraslih"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"
-                                           Margin="0,0,0,0"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Row="1"                          
-                                BorderBrush="White"                            
-                                CornerRadius="3"                          
-                                BorderThickness="0.5"                            
-                                Margin="1">
-                        <StackPanel Orientation="Horizontal"                                   
-                                        Margin="0,0,2,0">
-                            <Image Source="/Resursi/Slike/Devojcica.png"                                   
-                                       Width="13"                           
-                                       Height="13"></Image>
-                            <TextBlock Text="0"                                       
-                                           x:Name="tbBrojDece"                                      
-                                           HorizontalAlignment="Center"                                      
-                                           VerticalAlignment="Center"                                 
-                                           Foreground="White"></TextBlock>
-                        </StackPanel>
-                    </Border>
-                </UniformGrid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0"
+                      >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="1.6*"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="1"                        
-                                 Margin="2"                    
-                                 Background="White"                     
-                                 x:Name="tbNapomena"                     
-                                 LostFocus="tbNapomena_LostFocus"                     
-                                 TextWrapping="WrapWithOverflow"                     
-                                 Text="Napomena: -"                     
-                                 FontSize="12"                     
-                                 >
-                    </TextBox>
+                    <StackPanel Orientation="Vertical"
+                                Margin="5,3,0,0">
+                        <TextBlock Text="Jovan"
+                               x:Name="tbIme"
+                               FontSize="12"
+                               Foreground="{DynamicResource Bela}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="Jovanović"
+                               x:Name="tbPrezime"
+                               FontSize="12"
+                               Foreground="{DynamicResource Bela}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"></TextBlock>
+                    </StackPanel>
+                    <Border Grid.Row="1"
+                            Background="{DynamicResource Crvena}"
+                            CornerRadius="0,0,0,2.5"
+                            x:Name="brdVisakLjudi"
+                            Visibility="Hidden"
+                            Width="80"
+                            HorizontalAlignment="Left"></Border>
                     <StackPanel Orientation="Horizontal"
-                                    Grid.Row="0">
-                        <Border Grid.Row="0"                            
-                                    BorderBrush="White"                            
-                                    CornerRadius="3"                            
-                                    BorderThickness="0.5"                            
-                                    Margin="1,1,0,1">
-                            <TextBlock x:Name="tbImeIPrezime"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"                                       
-                                           Foreground="White"                                                                
-                                           Text="N.N."                                                                  
-                                           Grid.Row="0"                                                                  
-                                           Margin="2,0,2,0"></TextBlock>
-                        </Border>
-                        <Border Grid.Row="0"                            
-                                    BorderBrush="White"                            
-                                    CornerRadius="3"                           
-                                    BorderThickness="0.5"                            
-                                    Margin="1,1,0,1">
-                            <TextBlock x:Name="tbSto"                                                                  
-                                           Foreground="White"                                                  
-                                           Text="Sto - N"  
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Grid.Row="1"                                     
-                                           Margin="2,0,2,0"></TextBlock>
-                        </Border>
-                        <Border Grid.Row="0"                            
-                                    BorderBrush="White"                            
-                                    CornerRadius="3"                          
-                                    BorderThickness="0.5"                       
-                                    Margin="1,1,2,1">
-                            <TextBlock x:Name="tbVreme"                                    
-                                           Foreground="White"                           
-                                           Text="00:00 - 00:00"   
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Grid.Row="2"                                             
-                                           Margin="2,0,2,0"></TextBlock>
-                        </Border>
+                                HorizontalAlignment="Left"
+                                Grid.Row="1"
+                                Opacity="0.8">
+                        <Image Source="/Resursi/Slike/Covek.png"
+                               Height="15"></Image>
+                        <TextBlock Text="10"
+                                   x:Name="tbBrojOdraslih"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource Bela}"></TextBlock>
+                        <Rectangle Margin="5,0,0,0"
+                                   Width="1"
+                                   Height="20"
+                                   Fill="{DynamicResource Bela}"></Rectangle>
+                        <Image Source="/Resursi/Slike/Devojcica.png"
+                               Height="15"></Image>
+                        <TextBlock Text="10"
+                                   x:Name="tbBrojDece"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource Bela}"></TextBlock>
                     </StackPanel>
                 </Grid>
+                <Rectangle Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Fill="{DynamicResource Bela}"
+                           Width="1"
+                           Height="40"></Rectangle>
+                <TextBlock Grid.Column="2"
+                           Margin="5,5,5,5"
+                           x:Name="tbNapomena"
+                           Text="Napomena:"
+                           Foreground="{DynamicResource Bela}"></TextBlock>
             </Grid>
         </Grid>
     </Border>

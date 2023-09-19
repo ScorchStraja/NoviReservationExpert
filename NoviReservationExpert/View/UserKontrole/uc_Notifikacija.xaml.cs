@@ -24,41 +24,12 @@ namespace NoviReservationExpert.View.UserKontrole
     public partial class uc_Notifikacija : UserControl
     {
         public re_Rezervacija rezervacija;
+        bool vidjenanotifikacija = false;
         int _status; // -1 rezervacija je prosla, 0 rezervacija je u toku, 1 rezervacija tek dolazi
         SolidColorBrush animatedBrush = new SolidColorBrush();
         Storyboard myStoryboard = new Storyboard();
         ColorAnimationUsingKeyFrames colorAnimation = new ColorAnimationUsingKeyFrames();
-        public int Status
-        {
-            get
-            {
-                return _status;
-            }
-            set 
-            { 
-                _status = value;
-                if(_status == 1)
-                {
-                    brdRoot.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#d11a2a");
-                }
-                if (_status == 0)
-                {
-                    ColorAnimation animation;
-                    animation = new ColorAnimation();
-                    animation.From = (Color)ColorConverter.ConvertFromString("#284b63");
-                    animation.To = (Color)ColorConverter.ConvertFromString("#427aa1");
-                    animation.Duration = new Duration(TimeSpan.FromSeconds(1));
-                    animation.AutoReverse = true;
-                    animation.RepeatBehavior = RepeatBehavior.Forever;
-                    this.brdRoot.Background.BeginAnimation(SolidColorBrush.ColorProperty, animation);
-                }
-                if (_status == -1)
-                {
-                    brdRoot.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
-                }
-            }
-        }
-
+       
         public uc_Notifikacija(re_Rezervacija rezervacije)
         {
             InitializeComponent();
@@ -68,44 +39,55 @@ namespace NoviReservationExpert.View.UserKontrole
             brOdraslih.Text = rezervacija.BrojOdraslih.ToString();
             brDece.Text = rezervacija.BrojDece.ToString();
             tbNosiocRezervacije.Text = rezervacija.ImeGosta + " " + rezervacija.PrezimeGosta;
-            tbVremeISto.Text = "Sto " + rezervacija.Sto + ", " + rezervacija.VremeOd.ToString("HH:mm") + " - " + rezervacija.VremeDo.ToString("HH:mm");
-            tbObjekat.Text = rezervacija.Sema;
-          
-            if (rezervacija.VremeOd > DateTime.Now)
+            tbVremeISto.Text = "Sto " + rezervacija.Sto; //+ ", " + rezervacija.VremeOd.ToString("HH:mm") + " - " + rezervacija.VremeDo.ToString("HH:mm");
+
+            if (rezervacija.Status == -1)
             {
-                Status = -1;
+                brdStatus.Background = (Brush)Application.Current.FindResource("Otkazano");
             }
-            if (rezervacija.VremeOd < DateTime.Now && rezervacija.VremeDo > DateTime.Now)
+            if (rezervacija.Status == 0)
             {
-                Status = 0;
+                brdStatus.Background = (Brush)Application.Current.FindResource("Rezervisano");
             }
-            if (rezervacija.VremeDo < DateTime.Now)
+            if (rezervacija.Status == 1)
             {
-                Status = 1;
+                brdStatus.Background = (Brush)Application.Current.FindResource("UToku");
+            }
+            if (rezervacija.Status == 2)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Zavrseno");
             }
         }
 
-        public void Update()
+        public void Update(re_Rezervacija update)
         {
-            rezervacija = Broker.BrokerSelect.dajSesiju().VratiRezervacijuPoId(rezervacija.Id);
+            this.rezervacija = update;
+            if (rezervacija.Status == -1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Otkazano");
+            }
+            if (rezervacija.Status == 0)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Rezervisano");
+            }
+            if (rezervacija.Status == 1)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("UToku");
+            }
+            if (rezervacija.Status == 2)
+            {
+                brdStatus.Background = (Brush)Application.Current.FindResource("Zavrseno");
+            }
             brOdraslih.Text = rezervacija.BrojOdraslih.ToString();
             brDece.Text = rezervacija.BrojDece.ToString();
             tbNosiocRezervacije.Text = rezervacija.ImeGosta + " " + rezervacija.PrezimeGosta;
-            tbVremeISto.Text = "Sto " + rezervacija.Sto + ", " + rezervacija.VremeOd.ToString("HH:mm") + " - " + rezervacija.VremeDo.ToString("HH:mm");
-            tbObjekat.Text = rezervacija.Sema;
-            Status = 0;
-            if(rezervacija.Status != 1)
-            {
-                if (rezervacija.VremeOd < DateTime.Now && rezervacija.VremeOd.AddMinutes(Globalno.Varijable.MaksimalnoVremeKasnjenja) < DateTime.Now)
-                {
-                    Status = -1;
-                    Broker.BrokerUpdate.dajSesiju().UpdateRezervaciju(rezervacija.Id, -1);
-                }
-            }
-            if (rezervacija.VremeDo < DateTime.Now && rezervacija.Status == 1)
-            {
-                Status = 1;
-            }
+            tbVremeISto.Text = "Sto " + rezervacija.Sto; 
+        }
+
+        public void VidjenaNotifikacija()
+        {
+            vidjenanotifikacija = true;
+            brdVidjenaNotifikacija.Visibility = Visibility.Hidden;
         }
     }
 }

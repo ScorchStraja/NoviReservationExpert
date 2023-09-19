@@ -24,10 +24,10 @@ namespace NoviReservationExpert.View
         public v_PregledRezervacija()
         {
             InitializeComponent();
-            vm = new vm_PregledRezervacija();
+            vm = new vm_PregledRezervacija(dpDugmici);
             this.DataContext = vm;
 
-            btnSve.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#427aa1");
+            btnUToku.Background = (Brush)Application.Current.FindResource("Plava_SV");
 
             if (vm.ZatvoriFormu != null ) 
             {
@@ -40,31 +40,76 @@ namespace NoviReservationExpert.View
             Button btn = sender as Button;
             foreach(Button button in dpDugmici.Children.OfType<Button>())
             {
-                button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#284b63");
+                button.Background = (Brush)Application.Current.FindResource("Plava");
             }
-            btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#427aa1");
+            btn.Background = (Brush)Application.Current.FindResource("Plava_SV");
         }
 
-        private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        private void CalendarOD_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(Kalendar.SelectedDate == new DateTime())
+            if(KalendarOD.SelectedDate == new DateTime())
             {
-                Kalendar.SelectedDate = DateTime.Today;
+                KalendarOD.SelectedDate = DateTime.Today;
             }
-            Kalendar.Visibility = Visibility.Collapsed;
-            DateTime dt = (DateTime)Kalendar.SelectedDate;
-            btnKalendar.Content = dt.ToString("dd.MM.yyyy");
+            KalendarOD.Visibility = Visibility.Collapsed;
+            KalendarDO.Visibility = Visibility.Collapsed;
+            DateTime dt = (DateTime)KalendarOD.SelectedDate;
+            btnKalendarOD.Content = "OD: " + dt.ToString("dd.MM.yyyy");
         }
 
-        private void PrikaziSakrijKalendar(object sender, RoutedEventArgs e)
+        private void PrikaziSakrijKalendarOD(object sender, RoutedEventArgs e)
         {
-            if(Kalendar.Visibility == Visibility.Visible)
+            if(KalendarOD.Visibility == Visibility.Visible)
             {
-                Kalendar.Visibility = Visibility.Collapsed;
+                KalendarOD.Visibility = Visibility.Collapsed;
+                KalendarDO.Visibility = Visibility.Collapsed;
             }
             else
             {
-                Kalendar.Visibility = Visibility.Visible;
+                KalendarOD.Visibility = Visibility.Visible;
+                KalendarDO.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CalendarDO_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (KalendarDO.SelectedDate == new DateTime())
+            {
+                KalendarDO.SelectedDate = DateTime.Today;
+            }
+            KalendarOD.Visibility = Visibility.Collapsed;
+            KalendarDO.Visibility = Visibility.Collapsed;
+            DateTime dt = (DateTime)KalendarDO.SelectedDate;
+            btnKalendarDO.Content = "DO: " + dt.ToString("dd.MM.yyyy");
+        }
+
+        private void PrikaziSakrijKalendarDO(object sender, RoutedEventArgs e)
+        {
+            if (KalendarDO.Visibility == Visibility.Visible)
+            {
+                KalendarOD.Visibility = Visibility.Collapsed;
+                KalendarDO.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                KalendarOD.Visibility = Visibility.Collapsed;
+                KalendarDO.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ResetPretragu(object sender, TextChangedEventArgs e)
+        {
+            if(tbPretraga.Text.Length == 0)
+            {
+                this.vm.UkloniPretraga_Metoda(null);
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                this.vm.Pretraga_Metoda(null);
             }
         }
     }

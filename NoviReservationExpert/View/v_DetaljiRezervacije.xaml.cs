@@ -33,10 +33,61 @@ namespace NoviReservationExpert.View
                 vm.ZatvoriFormu = new Action(this.Close);
 
         }
-
-        private void TextBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            Kalendar.Visibility = Visibility.Visible;
+        }
 
+        private void Kalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Kalendar.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Kalendar.Visibility = Visibility.Hidden;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvVremenaPocetak.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_GotFocus_1(object sender, RoutedEventArgs e)
+        {
+            lvVremenaPocetak.Visibility = Visibility.Visible;
+            TimeSpan span = new TimeSpan(0, 30, 0);
+            long ticks = DateTime.Now.Ticks / span.Ticks;
+            lvVremenaPocetak.ScrollIntoView(new DateTime(ticks * span.Ticks, DateTime.Now.Kind).ToString("HH:mm"));
+        }
+
+        private void TextBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+            lvVremenaPocetak.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_GotFocus_2(object sender, RoutedEventArgs e)
+        {
+            lvVremenaKraj.Visibility = Visibility.Visible;
+            TimeSpan span = new TimeSpan(0, 30, 0);
+            long ticks = DateTime.Now.Ticks / span.Ticks;
+            lvVremenaKraj.ScrollIntoView(new DateTime(ticks * span.Ticks, DateTime.Now.Kind).ToString("HH:mm"));
+        }
+
+        private void TextBox_LostFocus_2(object sender, RoutedEventArgs e)
+        {
+            lvVremenaKraj.Visibility = Visibility.Hidden;
+        }
+
+        private void lvVremenaKraj_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvVremenaKraj.Visibility = Visibility.Hidden;
+        }
+
+        private void lvVremenaKraj_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lvVremenaKraj.Visibility = Visibility.Hidden;
+            lvVremenaPocetak.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -18,108 +18,18 @@ namespace NoviReservationExpert.Model
             }
         }
 
-        string _idgst;
-        string _nazivint;
-        string _nazivext;
-        int _sifkd;
-        int _aktivna;
-        string _tel;
-        string _email;
         string _ime;
         string _prezime;
-        string _grad;
+        string _telefon;
 
-        public string ID
+
+        public string Ime
         {
             get 
             { 
-                return _idgst; 
+                return _ime; 
             }
             set 
-            { 
-                _idgst = value;
-                NotifyPropertyChanged(nameof(ID));
-            }
-        }
-        public string NazivInt
-        {
-            get
-            {
-                return _nazivint;
-            }
-            set
-            {
-                _nazivint = value;
-                NotifyPropertyChanged(nameof(NazivInt));
-            }
-        }
-        public string NazivExt
-        {
-            get
-            {
-                return _nazivext;
-            }
-            set
-            {
-                _nazivext = value;
-                NotifyPropertyChanged(nameof(NazivExt));
-            }
-        }
-        public int SifKD
-        {
-            get
-            {
-                return _sifkd;
-            }
-            set
-            {
-                _sifkd = value;
-                NotifyPropertyChanged(nameof(SifKD));
-            }
-        }
-        public int Aktivna
-        {
-            get
-            {
-                return _aktivna;
-            }
-            set
-            {
-                _aktivna = value;
-                NotifyPropertyChanged(nameof(Aktivna));
-            }
-        }
-        public string Telefon
-        {
-            get
-            {
-                return _tel;
-            }
-            set
-            {
-                _tel = value;
-                NotifyPropertyChanged(nameof(Telefon));
-            }
-        }
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-                NotifyPropertyChanged(nameof(Email));
-            }
-        }
-        public string Ime
-        {
-            get
-            {
-                return _ime;
-            }
-            set
             {
                 _ime = value;
                 NotifyPropertyChanged(nameof(Ime));
@@ -137,18 +47,17 @@ namespace NoviReservationExpert.Model
                 NotifyPropertyChanged(nameof(Prezime));
             }
         }
-        public string Grad
+        public string Telefon
         {
             get
             {
-                return _grad;
+                return _telefon;
             }
             set
             {
-                _grad = value;
-                NotifyPropertyChanged(nameof(Grad));
+                _telefon = value;
+                NotifyPropertyChanged(nameof(Telefon));
             }
         }
-
     }
 }

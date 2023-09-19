@@ -15,11 +15,13 @@
         SizeToContent="WidthAndHeight"
         >
     <Grid>
-        <Border BorderBrush="DimGray"
-                Background="WhiteSmoke"
-                BorderThickness="1.5"
+        <Border BorderBrush="{DynamicResource Plava_SV}"
+                Background="{DynamicResource Bela}"
+                BorderThickness="2"
                 Width="170"
+                CornerRadius="3"
                 >
+            
             <DockPanel LastChildFill="False">
                 <Grid DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
@@ -29,9 +31,9 @@
                     <Border Grid.Column="0"
                             x:Name="brdVreme"
                             BorderThickness="0,0,0.5,0"
-                            Background="DimGray">
+                            Background="{DynamicResource Plava_SV}">
                         <TextBlock Text="14:30"
-                           Foreground="White"
+                           Foreground="{DynamicResource Bela}"
                        x:Name="Vreme"
                        HorizontalAlignment="Center"
                        FontSize="14">
@@ -39,11 +41,11 @@
                     </Border>
 
                     <Border Grid.Column="1"
-                            Background="DimGray"
+                            Background="{DynamicResource Plava_SV}"
                             BorderThickness="0.5,0,0,0">
                         <TextBlock Text="Sto 12"
                                    HorizontalAlignment="Center"
-                                   Foreground="White"
+                                   Foreground="{DynamicResource Bela}"
                                    x:Name="Sto"
                                    FontSize="14">
                         </TextBlock>
@@ -61,12 +63,12 @@
                         </Style>
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resursi/Slike/Rezervacija_Crno.png" Width ="15" Height="15" 
+                        <Image Source="/Resursi/Slike/Rezervacija_Sivo.png" Width ="15" Height="15" 
                            VerticalAlignment="Center"
                                Margin="5,0,0,0"></Image>
                         <TextBlock Text="Nova rezervacija"
                                VerticalAlignment="Center"
-                               Foreground="Black"
+                               Foreground="{DynamicResource Siva}"
                                    Margin="15,0,0,0"
                                Padding="4,0,0,2"
                                FontSize="12"></TextBlock>
@@ -101,12 +103,13 @@
                         </Style>
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resursi/Slike/Informacije_Crno.png" Width ="15" Height="15" 
+                        <Image Source="/Resursi/Slike/Informacije_Sivo.png" Width ="15" Height="15" 
                            VerticalAlignment="Center"
                                Margin="5,0,0,0"></Image>
                         <TextBlock Text="Detalji rezervacije"
                                VerticalAlignment="Center"
-                               Foreground="Black"
+                               Foreground="{DynamicResource Siva}"
+                                   
                                    Margin="15,0,0,0"
                                Padding="4,0,0,2"
                                FontSize="12"></TextBlock>
@@ -133,6 +136,7 @@
                 </Button>
                 <Button Height="30" 
                         x:Name="btnAktiviranje"
+                        Visibility="Visible"
                     Click="AktivirajRezervaciju"
                     DockPanel.Dock="Top">
                     <Button.Resources>
@@ -141,12 +145,12 @@
                         </Style>
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resursi/Slike/Ceker_crno.png" Width ="15" Height="15" 
+                        <Image Source="/Resursi/Slike/Ceker_Sivo.png" Width ="15" Height="15" 
                            VerticalAlignment="Center"
                                Margin="5,0,0,0"></Image>
                         <TextBlock Text="Aktiviraj rezervaciju"
                                VerticalAlignment="Center"
-                               Foreground="Black"
+                               Foreground="{DynamicResource Siva}"
                                    Margin="15,0,0,0"
                                Padding="4,0,0,2"
                                FontSize="12"></TextBlock>
@@ -181,12 +185,132 @@
                         </Style>
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resursi/Slike/Exit_crno.png" Width ="15" Height="15" 
+                        <Image Source="/Resursi/Slike/Exit_Sivo.png" Width ="15" Height="15" 
                            VerticalAlignment="Center"
                                Margin="5,0,0,0"></Image>
-                        <TextBlock Text="Deaktiviraj rezervaciju"
+                        <TextBlock Text="Otkaži rezervaciju"
                                VerticalAlignment="Center"
-                               Foreground="Black"
+                               Foreground="{DynamicResource Siva}"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnZavrsi"
+                    Click="btnZavrsi_Click"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/DupliCeker_Sivo.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Završi rezervaciju"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource Siva}"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnSkloniNotifikaciju"
+                    Click="SkloniNotifikaciju"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/Exit_Sivo.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Skloni notifikaciju"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource Siva}"
+                                   Margin="15,0,0,0"
+                               Padding="4,0,0,2"
+                               FontSize="12"></TextBlock>
+                    </StackPanel>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="30" 
+                        x:Name="btnVratiRezervaciju"
+                    Click="VratiRezervaciju"
+                    DockPanel.Dock="Top">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="0"></Setter>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resursi/Slike/Rezervacija_Sivo.png" Width ="15" Height="15" 
+                           VerticalAlignment="Center"
+                               Margin="5,0,0,0"></Image>
+                        <TextBlock Text="Vrati u rezervisano"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource Siva}"
                                    Margin="15,0,0,0"
                                Padding="4,0,0,2"
                                FontSize="12"></TextBlock>

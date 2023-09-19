@@ -10,7 +10,10 @@
   <ItemGroup>
     <None Remove="Resursi\Slike\BarskaStolica_Crno.png" />
     <None Remove="Resursi\Slike\calculatorBeli.png" />
+    <None Remove="Resursi\Slike\Ceker_Belo.png" />
     <None Remove="Resursi\Slike\Ceker_Crno.png" />
+    <None Remove="Resursi\Slike\Ceker_Sivo.png" />
+    <None Remove="Resursi\Slike\Check.png" />
     <None Remove="Resursi\Slike\Covek.png" />
     <None Remove="Resursi\Slike\Covek_Crno.png" />
     <None Remove="Resursi\Slike\Covek_Sivo.png" />
@@ -18,19 +21,32 @@
     <None Remove="Resursi\Slike\deleteBeli.png" />
     <None Remove="Resursi\Slike\Desno.png" />
     <None Remove="Resursi\Slike\Devojcica.png" />
+    <None Remove="Resursi\Slike\Devojcica_Sivo.png" />
     <None Remove="Resursi\Slike\Dole.png" />
+    <None Remove="Resursi\Slike\DupliCeker_Belo.png" />
+    <None Remove="Resursi\Slike\DupliCeker_Crno.png" />
+    <None Remove="Resursi\Slike\DupliCeker_Sivo.png" />
     <None Remove="Resursi\Slike\exit8.png" />
     <None Remove="Resursi\Slike\exitSivi.png" />
+    <None Remove="Resursi\Slike\Exit_Belo.png" />
+    <None Remove="Resursi\Slike\Exit_Belo2.png" />
     <None Remove="Resursi\Slike\exit_Crno.png" />
+    <None Remove="Resursi\Slike\Exit_Sivo.png" />
     <None Remove="Resursi\Slike\Gore.png" />
+    <None Remove="Resursi\Slike\Informacije_Belo.png" />
     <None Remove="Resursi\Slike\Informacije_Crno.png" />
+    <None Remove="Resursi\Slike\Informacije_Sivo.png" />
     <None Remove="Resursi\Slike\izlaz.png" />
     <None Remove="Resursi\Slike\izlazbeli.png" />
     <None Remove="Resursi\Slike\Kalendar_Belo.png" />
+    <None Remove="Resursi\Slike\Konfiguracija_belo.png" />
     <None Remove="Resursi\Slike\Levo.png" />
     <None Remove="Resursi\Slike\login.png" />
     <None Remove="Resursi\Slike\Notifikacije_Belo.png" />
+    <None Remove="Resursi\Slike\Objekat_Belo.png" />
     <None Remove="Resursi\Slike\objekti.png" />
+    <None Remove="Resursi\Slike\PaintRoler.png" />
+    <None Remove="Resursi\Slike\Pin_Belo.png" />
     <None Remove="Resursi\Slike\pitanje.png" />
     <None Remove="Resursi\Slike\plus.png" />
     <None Remove="Resursi\Slike\pocetnaSlika2.jpg" />
@@ -38,8 +54,10 @@
     <None Remove="Resursi\Slike\Pregled_Crno.png" />
     <None Remove="Resursi\Slike\Pretraga.png" />
     <None Remove="Resursi\Slike\PromenaEkrana_Belo.png" />
+    <None Remove="Resursi\Slike\Promena_Belo.png" />
     <None Remove="Resursi\Slike\Rezervacija_Belo.png" />
     <None Remove="Resursi\Slike\Rezervacija_crno.png" />
+    <None Remove="Resursi\Slike\Rezervacija_Sivo.png" />
     <None Remove="Resursi\Slike\Sat_Crno.png" />
     <None Remove="Resursi\Slike\shiftBeli.png" />
     <None Remove="Resursi\Slike\Sto.png" />
@@ -48,9 +66,17 @@
     <None Remove="Resursi\Slike\Sto_siva.png" />
     <None Remove="Resursi\Slike\Sto_Sivo.png" />
     <None Remove="Resursi\Slike\Suncobran_Crno.png" />
+    <None Remove="Resursi\Slike\Undo.png" />
     <None Remove="Resursi\Slike\upozorenje.png" />
     <None Remove="Resursi\Slike\userlogin.png" />
+    <None Remove="Resursi\Slike\User_Belo.png" />
+    <None Remove="Resursi\Slike\X.png" />
     <None Remove="Resursi\Slike\ZnakUzvika.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resursi\Slike\Konfiguracija_belo.png" />
+    <Resource Include="Resursi\Slike\Objekat_Belo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,12 +84,16 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resursi\Slike\BarskaStolica_Crno.png" />
     <Resource Include="Resursi\Slike\calculatorBeli.png" />
+    <Resource Include="Resursi\Slike\Ceker_Belo.png" />
     <Resource Include="Resursi\Slike\Ceker_Crno.png" />
+    <Resource Include="Resursi\Slike\Ceker_Sivo.png" />
+    <Resource Include="Resursi\Slike\Check.png" />
     <Resource Include="Resursi\Slike\Covek.png" />
     <Resource Include="Resursi\Slike\Covek_Crno.png" />
     <Resource Include="Resursi\Slike\Covek_Sivo.png" />
@@ -71,12 +101,21 @@
     <Resource Include="Resursi\Slike\deleteBeli.png" />
     <Resource Include="Resursi\Slike\Desno.png" />
     <Resource Include="Resursi\Slike\Devojcica.png" />
+    <Resource Include="Resursi\Slike\Devojcica_Sivo.png" />
     <Resource Include="Resursi\Slike\Dole.png" />
+    <Resource Include="Resursi\Slike\DupliCeker_Belo.png" />
+    <Resource Include="Resursi\Slike\DupliCeker_Crno.png" />
+    <Resource Include="Resursi\Slike\DupliCeker_Sivo.png" />
     <Resource Include="Resursi\Slike\exit8.png" />
     <Resource Include="Resursi\Slike\exitSivi.png" />
+    <Resource Include="Resursi\Slike\Exit_Belo.png" />
+    <Resource Include="Resursi\Slike\Exit_Belo2.png" />
     <Resource Include="Resursi\Slike\exit_Crno.png" />
+    <Resource Include="Resursi\Slike\Exit_Sivo.png" />
     <Resource Include="Resursi\Slike\Gore.png" />
+    <Resource Include="Resursi\Slike\Informacije_Belo.png" />
     <Resource Include="Resursi\Slike\Informacije_Crno.png" />
+    <Resource Include="Resursi\Slike\Informacije_Sivo.png" />
     <Resource Include="Resursi\Slike\izlaz.png" />
     <Resource Include="Resursi\Slike\izlazbeli.png" />
     <Resource Include="Resursi\Slike\Kalendar_Belo.png" />
@@ -84,6 +123,8 @@
     <Resource Include="Resursi\Slike\login.png" />
     <Resource Include="Resursi\Slike\Notifikacije_Belo.png" />
     <Resource Include="Resursi\Slike\objekti.png" />
+    <Resource Include="Resursi\Slike\PaintRoler.png" />
+    <Resource Include="Resursi\Slike\Pin_Belo.png" />
     <Resource Include="Resursi\Slike\pitanje.png" />
     <Resource Include="Resursi\Slike\plus.png" />
     <Resource Include="Resursi\Slike\pocetnaSlika2.jpg" />
@@ -91,8 +132,10 @@
     <Resource Include="Resursi\Slike\Pregled_Crno.png" />
     <Resource Include="Resursi\Slike\Pretraga.png" />
     <Resource Include="Resursi\Slike\PromenaEkrana_Belo.png" />
+    <Resource Include="Resursi\Slike\Promena_Belo.png" />
     <Resource Include="Resursi\Slike\Rezervacija_Belo.png" />
     <Resource Include="Resursi\Slike\Rezervacija_crno.png" />
+    <Resource Include="Resursi\Slike\Rezervacija_Sivo.png" />
     <Resource Include="Resursi\Slike\Sat_Crno.png" />
     <Resource Include="Resursi\Slike\shiftBeli.png" />
     <Resource Include="Resursi\Slike\Sto.png" />
@@ -100,8 +143,11 @@
     <Resource Include="Resursi\Slike\Sto_Belo.png" />
     <Resource Include="Resursi\Slike\Sto_Sivo.png" />
     <Resource Include="Resursi\Slike\Suncobran_Crno.png" />
+    <Resource Include="Resursi\Slike\Undo.png" />
     <Resource Include="Resursi\Slike\upozorenje.png" />
     <Resource Include="Resursi\Slike\userlogin.png" />
+    <Resource Include="Resursi\Slike\User_Belo.png" />
+    <Resource Include="Resursi\Slike\X.png" />
     <Resource Include="Resursi\Slike\ZnakUzvika.png" />
   </ItemGroup>
 
@@ -112,6 +158,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Update="View\v_Meni.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\v_IstorijaDogadjaja.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

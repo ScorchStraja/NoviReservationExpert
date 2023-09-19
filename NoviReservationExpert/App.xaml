@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:NoviReservationExpert"
              Startup="Application_Startup">
     <Application.Resources>
-         
+        <ResourceDictionary Source="/Resursi/Boje.xaml" />
     </Application.Resources>
 </Application>

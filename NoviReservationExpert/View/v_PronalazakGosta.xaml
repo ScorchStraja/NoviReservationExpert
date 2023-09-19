@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NoviReservationExpert.View"
+        xmlns:local="clr-namespace:NoviReservationExpert.View" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="v_PronalazakGosta" Height="450" Width="800">
+        Title="Pronalazak gosta" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -13,12 +13,6 @@
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel LastChildFill="False">
-            <TextBlock Text="Gosti"
-                       VerticalAlignment="Center"
-                       DockPanel.Dock="Left"
-                       Foreground="#284b63"
-                       FontSize="16"
-                       Margin="10,0,0,0"></TextBlock>
             <StackPanel Margin="0,0,5,0"
                         DockPanel.Dock="Right"
                         Orientation="Horizontal">
@@ -32,19 +26,21 @@
                 <TextBox Height="25"
                              Width="130"
                              Padding="2,3,0,0"
-                             Text="{Binding filterText}"
-                             Margin="5,0,5,0"></TextBox>
+                             Text="{Binding filterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="5,0,5,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding IzbrisanFilter_Command}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
                 <Button BorderBrush="Transparent"                                    
                     Margin="0,0,0,0"                        
                     Height="25"   
                     Width="100"
+                        IsDefault="True"
                     DockPanel.Dock="Right"                  
                     Command="{Binding Filter_Command}">
-                    <Button.BitmapEffect>
-                        <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                        </DropShadowBitmapEffect>
-                    </Button.BitmapEffect>
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="3"></Setter>
@@ -66,7 +62,7 @@
 
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#284b63"/>
+                            <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Button}">
@@ -78,7 +74,7 @@
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#427aa1"/>
+                                    <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava_SV}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -87,7 +83,7 @@
             </StackPanel>
         </DockPanel>
         <Border Grid.Row="1">
-            <DataGrid Margin="0"
+            <DataGrid Margin="5,0,5,0"
                       Background="White"
                       x:Name="dgPrikaz"
                       RowHeight="26"
@@ -112,8 +108,8 @@
                       >
                 <DataGrid.Resources>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#284b63"/>
-                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Bela}"/>
                         <Setter Property="BorderThickness" Value="0.5,0.5,0.5,1"/>
                         <Setter Property="BorderBrush" Value="White"/>
                     </Style>
@@ -151,11 +147,6 @@
                     Width="100"
                         DockPanel.Dock="Left"
                         Command="{Binding Odustani_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
@@ -172,7 +163,7 @@
                 </StackPanel>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#d11a2a"/>
+                        <Setter Property="Background" Value="{DynamicResource Crvena}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -184,29 +175,23 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#8b0000"/>
+                                <Setter Property="Background" Value="{DynamicResource Crvena_SV}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
             <Button BorderBrush="Transparent"                                    
-                    Margin="0,0,0,0"                        
+                    Margin="0,0,5,0"                        
                     Height="35"   
                     Width="150"
                     DockPanel.Dock="Right"                  
                     Command="{Binding IzaberiGosta_Command}">
-                <Button.BitmapEffect>
-                    <DropShadowBitmapEffect Color="#333333" Direction="360" ShadowDepth="0" Opacity="0.5">
-
-                    </DropShadowBitmapEffect>
-                </Button.BitmapEffect>
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"></Setter>
                     </Style>
                 </Button.Resources>
-
                 <TextBlock Text="Izaberi gosta"                                  
                            Foreground="WhiteSmoke"                           
                            VerticalAlignment="Center"                           
@@ -216,7 +201,7 @@
                 </TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="#284b63"/>
+                        <Setter Property="Background" Value="{DynamicResource ResourceKey=Plava}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">

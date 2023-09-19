@@ -88,7 +88,7 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <Border CornerRadius="3"
-                        Background="Black"
+                        Background="{DynamicResource Plava}"
                         Margin="15"
                         HorizontalAlignment="Center"
                         Width="120">

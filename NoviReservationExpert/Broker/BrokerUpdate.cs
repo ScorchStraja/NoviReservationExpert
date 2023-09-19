@@ -32,7 +32,9 @@ namespace NoviReservationExpert.Broker
                                   "Dtm=@datum, " +
                                   "Vreme_Od=@vremeod, " +
                                   "Vreme_Do=@vremedo, " +
-                                  "Gost=@gost, " +
+                                  "ImeGosta=@imegosta ," +
+                                  "PrezimeGosta=@prezimegosta, " +
+                                  "TelefonGosta=@telefongosta, " +
                                   "Sema=@sema, " +
                                   "Napomena=@napomena, " +
                                   "Sto=@sto, " +
@@ -46,7 +48,9 @@ namespace NoviReservationExpert.Broker
                         komanda.Parameters.AddWithValue("@datum", rezervacija.Datum);
                         komanda.Parameters.AddWithValue("@vremeod", rezervacija.VremeOd);
                         komanda.Parameters.AddWithValue("@vremedo", rezervacija.VremeDo);
-                        komanda.Parameters.AddWithValue("@gost", rezervacija.IdGost);
+                        komanda.Parameters.AddWithValue("@imegosta", rezervacija.ImeGosta);
+                        komanda.Parameters.AddWithValue("@prezimegosta", rezervacija.PrezimeGosta);
+                        komanda.Parameters.AddWithValue("@telefongosta", rezervacija.BrojTelefona);
                         komanda.Parameters.AddWithValue("@sema",rezervacija.Sema);
                         komanda.Parameters.AddWithValue("@napomena",rezervacija.Napomena);
                         komanda.Parameters.AddWithValue("@sto",rezervacija.Sto);
@@ -113,6 +117,36 @@ namespace NoviReservationExpert.Broker
                     {
                         komanda.Parameters.AddWithValue("@idrezervacije", idrezervacije);
                         komanda.Parameters.AddWithValue("@status", status);
+
+                        int rezultat = komanda.ExecuteNonQuery();
+                        if (rezultat < 0)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdateSveRezervacijePreDanasnjegDana()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(DBBroker.konekcioniString))
+                {
+                    connection.Open();
+                    string upit = "UPDATE [REZERVACIJA] SET " +
+                                  "Status = 2 " +
+                                  "WHERE Dtm < @datum";
+                    using (SqlCommand komanda = new SqlCommand(upit, connection))
+                    {
+
+                        komanda.Parameters.AddWithValue("@datum", DateTime.Today);
 
                         int rezultat = komanda.ExecuteNonQuery();
                         if (rezultat < 0)

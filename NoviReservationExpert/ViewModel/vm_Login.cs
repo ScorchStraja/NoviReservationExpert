@@ -281,6 +281,33 @@ namespace NoviReservationExpert.ViewModel
             tasteriMalaSlova.Visibility = Visibility.Visible;
             tasteriVelikaSlova.Visibility = Visibility.Hidden;
             tasteriBrojevi.Visibility = Visibility.Hidden;
+
+            brdPadajuciMeni.Height = listaObjekata.Count * 45;
+            StackPanel stcListaObj = new StackPanel();
+            stcListaObj.Orientation = Orientation.Vertical;
+            stcListaObj.Background = Brushes.Transparent;
+            //stcListaObj.Margin = new System.Windows.Thickness(20, 70, 50, 50);
+            stcListaObj.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+            stcListaObj.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+
+            brdPadajuciMeni.Child = stcListaObj;
+            foreach (re_Objekat item in listaObjekata)
+            {
+                TextBlock objekat = new TextBlock();
+                objekat.Background = Brushes.Transparent;
+                objekat.Foreground = Brushes.White;
+                objekat.Margin = new System.Windows.Thickness(20, 5, 0, 0);
+                objekat.FontSize = 15;
+                objekat.Height = 40;
+                objekat.Text = item.Naziv;
+                objekat.TextWrapping = TextWrapping.Wrap;
+                objekat.FontWeight = FontWeights.SemiBold;
+                objekat.Tag = item;
+
+                objekat.MouseLeftButtonDown += IzabranObjekat_MouseLeftButtonDown;
+
+                stcListaObj.Children.Add(objekat);
+            }
         }
 
         private void PrijavaEnter_Metoda(object obj)
@@ -396,7 +423,7 @@ namespace NoviReservationExpert.ViewModel
         {
             if (brdPadajuciMeni.Height == 0)
             {
-                DoubleAnimation heightAnimation = new DoubleAnimation(listaObjekata.Count * 45, new Duration(TimeSpan.FromSeconds(1.5)));
+                DoubleAnimation heightAnimation = new DoubleAnimation(listaObjekata.Count * 45, new Duration(TimeSpan.FromSeconds(0.5)));
                 brdPadajuciMeni.BeginAnimation(TextBlock.HeightProperty, heightAnimation);
             }
             else
@@ -430,8 +457,6 @@ namespace NoviReservationExpert.ViewModel
 
                 stcListaObj.Children.Add(objekat);
             }
-
-
         }
         private void IzabranObjekat_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -440,14 +465,14 @@ namespace NoviReservationExpert.ViewModel
             if (izabraniObj == null)
             {
                 tbIzabraniObj = txt;
-                tbIzabraniObj.Foreground = Brushes.Red;
+                tbIzabraniObj.Foreground = (Brush)Application.Current.FindResource("Plava_SV");
                 izabraniObj = (re_Objekat)txt.Tag;
             }
             else
             {
-                tbIzabraniObj.Foreground = Brushes.White;
+                tbIzabraniObj.Foreground = (Brush)Application.Current.FindResource("Bela");
                 tbIzabraniObj = txt;
-                tbIzabraniObj.Foreground = Brushes.Red;
+                tbIzabraniObj.Foreground = (Brush)Application.Current.FindResource("Plava_SV");
                 izabraniObj = (re_Objekat)txt.Tag;
             }
         }
@@ -499,6 +524,8 @@ namespace NoviReservationExpert.ViewModel
                     //Sistem.GlobalneVarijable.logovanikorisnik = "BrankoR";
 
                     //ovde palim svoj glavni ekran
+
+                    BrokerInsert.dajSesiju().ZapisiLog(9010, $"Uspešo ulogovan korisnik {korisnik.LogOnIme}.", "Login");
 
                     v_RadniProstor prozor = new v_RadniProstor();
                     prozor.Show();

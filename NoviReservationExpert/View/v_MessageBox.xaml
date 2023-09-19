@@ -92,7 +92,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Border CornerRadius="3"
-                        Background="Black"
+                        Background="{DynamicResource Plava}"
                         Margin="15"
                         HorizontalAlignment="Right"
                         Width="120">
@@ -111,7 +111,7 @@
                     </Border>
                     <Border Grid.Column="1"
                         CornerRadius="3"
-                        Background="Black"
+                        Background="{DynamicResource Plava}"
                         Margin="15"
                         HorizontalAlignment="Left"
                         Width="120">

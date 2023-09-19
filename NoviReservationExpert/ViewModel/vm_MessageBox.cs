@@ -24,8 +24,6 @@ namespace NoviReservationExpert.View
         public RelayCommand Zatvori_Command { get; private set; }
         public RelayCommand Potvrdi_Command { get; private set; }
         public RelayCommand Otkazi_Command { get; private set; }
-
-
         #endregion
 
         #region propertiji
